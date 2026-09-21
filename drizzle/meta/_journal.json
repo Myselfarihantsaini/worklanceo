@@ -8,6 +8,13 @@
       "when": 1789972306721,
       "tag": "0000_fair_mongoose",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789974848623,
+      "tag": "0001_melted_nightshade",
+      "breakpoints": true
     }
   ]
 }

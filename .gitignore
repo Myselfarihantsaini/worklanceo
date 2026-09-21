@@ -46,3 +46,7 @@ next-env.d.ts
 /work/
 
 *.tsbuildinfo
+
+.dev.vars
+.dev.vars.*
+!.env.example
