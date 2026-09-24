@@ -1,4 +1,4 @@
-# KaamSetu
+# WorkLanceo
 
 A recruitment and workforce website based on research into TeamLease, Quess, AxureOne, CIEL HR, Randstad India, Adecco India, WorkIndia, Apna, Job Hai and Taskmo.
 
@@ -13,7 +13,7 @@ A recruitment and workforce website based on research into TeamLease, Quess, Axu
 - Progressive WebMCP catalogue-search tool when supported by the browser.
 
 ## Operating boundaries
-KaamSetu is a working brand. Jobs and salary ranges are illustrative, not live vacancies. New hiring requirements and candidate profiles are shared with the restricted recruitment administrator. Legacy private drafts remain private until their owner explicitly submits them. Checklists stay private. No client metrics, testimonials, affiliations or hiring guarantees are claimed. Payroll, statutory filing, background verification, messaging, job-board syndication and payment systems are not integrated.
+WorkLanceo is a working brand. Jobs and salary ranges are illustrative, not live vacancies. New hiring requirements and candidate profiles are shared with the restricted recruitment administrator. Legacy private drafts remain private until their owner explicitly submits them. Checklists stay private. No client metrics, testimonials, affiliations or hiring guarantees are claimed. Payroll, statutory filing, background verification, messaging, job-board syndication and payment systems are not integrated.
 
 Before a public commercial launch, configure legal company information, domain/contact details, approved service contracts and privacy/retention policies; import real vacancies; configure additional recruiter and employer roles if needed; connect operational notifications and payroll/compliance providers as required.
 

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "KaamSetu | Recruitment & Workforce Solutions",
-  description: "Find work. Build teams. Recruitment, bulk hiring, staffing and workforce solutions for India.",
+  title: "WorkLanceo | Recruitment & Workforce Solutions",
+  description: "Build your team with WorkLanceo. Recruitment, bulk hiring, staffing and workforce solutions for India.",
   other: {
     "codex-preview": "development",
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/worklanceo-logo.png",
+    shortcut: "/worklanceo-logo.png",
   },
 };
 
