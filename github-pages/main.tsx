@@ -1,11 +1,11 @@
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import {createRoot,hydrateRoot} from 'react-dom/client';
 import Site from '../app/site';
 import '../app/globals.css';
 const base='/worklanceo';
 const origin='https://kaamsetu-workforce.diprish.chatgpt.site';
 const section=location.pathname.replace(/^\/worklanceo\/?/,'').replace(/\/$/,'')||'home';
-const pages=['home','solutions','resources','tools','about','privacy','terms'];
-if(['hire','workspace','admin','jobs'].includes(section))location.replace(origin+'/'+(section==='jobs'?'hire':section)+location.search+location.hash);
-else if(pages.includes(section))createRoot(document.getElementById('root')!).render(<Site page={section} publicBase={base} serviceOrigin={origin}/>);
+const pages=['home','solutions','resources','tools','about','privacy','terms','hire'];
+if(['workspace','admin','jobs'].includes(section))location.replace(origin+'/'+(section==='jobs'?'hire':section)+location.search+location.hash);
+else if(pages.includes(section))hydrateRoot(document.getElementById('root')!,<Site page={section} publicBase={base} serviceOrigin={origin}/>);
 else createRoot(document.getElementById('root')!).render(<main className="wrap section"><h1>Page not found</h1><a href="/worklanceo/">Go to WorkLanceo</a></main>);

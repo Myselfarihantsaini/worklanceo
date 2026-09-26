@@ -15,7 +15,7 @@ function Field({label,name,type='text',value,onChange,...props}:any){return <lab
 function download(name:string,text:string,type='text/plain'){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
 function Intro({eyebrow,title,desc}:any){return <div className="pageintro"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{desc&&<p className="lead">{desc}</p>}</div>}
 export default function Site({page, publicBase='', serviceOrigin=''}:{page:string,publicBase?:string,serviceOrigin?:string}){
-const link=(path:string)=>{if(!publicBase)return path;if(/^\/(hire|workspace|admin|signin-with-chatgpt|signout-with-chatgpt)(?:[/?#]|$)/.test(path))return serviceOrigin+path;const url=new URL(path,'https://worklanceo.invalid');return publicBase+url.pathname.replace(/\/$/,'')+'/'+url.search+url.hash};
+const link=(path:string)=>{if(!publicBase)return path;if(/^\/(workspace|admin|signin-with-chatgpt|signout-with-chatgpt)(?:[/?#]|$)/.test(path))return serviceOrigin+path;const url=new URL(path,'https://worklanceo.invalid');return publicBase+url.pathname.replace(/\/$/,'')+'/'+url.search+url.hash};
 const whole=(value:string,max=100000)=>Math.max(1,Math.min(max,Math.floor(Number(value)||1)));
 const [toolTab,setToolTab]=useState('hiring');
 useEffect(()=>{const q=new URLSearchParams(window.location.search);const tab=q.get('tab');if(tab&&['hiring','payroll','capacity','onboarding'].includes(tab))setToolTab(tab);const bits=q.get('checks');if(bits&&bits.length===onboarding.length&&/^[01]+$/.test(bits))setChecks([...bits].map(x=>x==='1'))},[]);
