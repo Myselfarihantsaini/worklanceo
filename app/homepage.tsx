@@ -501,7 +501,8 @@ export function Footer() {
           ],
           [
             "Resources",
-            ["Hiring Insights", "/resources"],
+            ["Company Profile (PPTX)", "/WorkLanceo-Company-Profile.pptx"],
+            ["Hiring Resources", "/resources"],
             ["FAQs", "/#faq"],
             ["Privacy Policy", "/privacy"],
             ["Terms", "/terms"],
