@@ -204,7 +204,9 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  overflow-x: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
 }
 .wl-strip-heading {
   font-size: 9px;
@@ -215,9 +217,11 @@
   white-space: nowrap;
 }
 .wl-strip-industries {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  width: 100%;
 }
 .wl-strip-ind {
   display: flex;
@@ -229,7 +233,8 @@
   font-size: 11px;
   font-weight: 500;
   text-align: center;
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
   transition: color 0.15s ease;
 }
 .wl-strip-ind svg {
@@ -1217,7 +1222,8 @@
   justify-content: center;
 }
 .wl-collage-wrapper {
-  align-self: stretch;
+  align-self: center;
+  aspect-ratio: 1881 / 836;
   min-width: 0;
   overflow: hidden;
   padding: 0;
@@ -1226,8 +1232,50 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
+  object-fit: contain;
+  object-position: center;
+  image-rendering: auto;
+}
+
+@media (min-width: 951px) and (max-width: 1600px) {
+  .wl-trustbar {
+    gap: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .wl-stats-group {
+    gap: 16px;
+  }
+  .wl-stat-item {
+    gap: 7px;
+  }
+  .wl-stat-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+  .wl-stat-info strong {
+    font-size: 14px;
+  }
+  .wl-stat-info span {
+    font-size: 9px;
+  }
+  .wl-industries-group {
+    gap: 10px;
+  }
+  .wl-strip-heading {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+  .wl-strip-industries {
+    gap: 6px;
+  }
+  .wl-strip-ind {
+    font-size: 9px;
+  }
+  .wl-strip-ind svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 @media (max-width: 1200px) {

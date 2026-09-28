@@ -235,11 +235,11 @@ function Hero() {
 
       <div className="wl-collage-wrapper">
         <img
-          src="/hero-collage.png"
+          src="/hero-collage-hd.png"
           alt="Professionals from logistics, healthcare, hospitality, retail and customer support"
           className="wl-reference-collage"
-          width="1188"
-          height="528"
+          width="1881"
+          height="836"
           fetchPriority="high"
         />
       </div>
