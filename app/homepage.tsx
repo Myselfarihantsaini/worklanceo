@@ -116,7 +116,9 @@ function Brand() {
         <img src="/worklanceo-logo.png" alt="" />
       </span>
       <span className="wl-wordmark">
-        <strong>Work<span>Lanceo</span></strong>
+        <strong>
+          Work<span>Lanceo</span>
+        </strong>
         <small>PEOPLE · POSSIBILITIES · PROGRESS</small>
       </span>
     </a>
@@ -176,176 +178,38 @@ export function Navbar() {
   );
 }
 
-function HeroWorkforceCollage() {
-  return (
-    <div className="wl-collage-wrapper">
-      <div className="wl-montage-container">
-        {/* Real People. Real Opportunities. Handwritten script badge */}
-        <div className="wl-handwritten-badge">
-          <span>Real People.</span>
-          <span>Real Opportunities.</span>
-        </div>
-
-        {/* Worker Cards Grid */}
-        <div className="wl-worker-cards">
-          <div className="wl-worker-card card-engineer">
-            <img src="/workers/engineer.jpg" alt="Construction & Engineering" />
-          </div>
-          <div className="wl-worker-card card-leader">
-            <img src="/workers/corporate-leader.jpg" alt="Corporate Management" />
-          </div>
-          <div className="wl-worker-card card-chef">
-            <img src="/workers/chef.jpg" alt="Hospitality & Culinary" />
-          </div>
-          <div className="wl-worker-card card-doctor">
-            <img src="/workers/doctor.jpg" alt="Healthcare & Medical" />
-          </div>
-          <div className="wl-worker-card card-delivery">
-            <img src="/workers/delivery.jpg" alt="Logistics & Delivery" />
-          </div>
-          <div className="wl-worker-card card-support">
-            <img src="/workers/support.jpg" alt="BPO & Customer Support" />
-          </div>
-        </div>
-
-        {/* Floating "More than a placement" Badge */}
-        <div className="wl-placement-floating">
-          <div className="wl-placement-icon-wrap">
-            <Users size={20} />
-          </div>
-          <div className="wl-placement-text">
-            <strong>More than a placement.</strong>
-            <p>A long-term partner for your workforce needs.</p>
-          </div>
-        </div>
-
-        {/* Candidate Hiring Pipeline Checklist Cards */}
-        <div className="wl-pipeline-cards">
-          <div className="wl-pipeline-card">
-            <img src="/workers/candidate1.jpg" alt="Candidate" className="wl-pipeline-avatar" />
-            <span className="wl-pipeline-title">Shortlisted</span>
-            <span className="wl-pipeline-check"><Check size={13} /></span>
-          </div>
-          <div className="wl-pipeline-card">
-            <img src="/workers/candidate2.jpg" alt="Candidate" className="wl-pipeline-avatar" />
-            <span className="wl-pipeline-title">Interviewed</span>
-            <span className="wl-pipeline-check"><Check size={13} /></span>
-          </div>
-          <div className="wl-pipeline-card">
-            <img src="/workers/candidate3.jpg" alt="Candidate" className="wl-pipeline-avatar" />
-            <span className="wl-pipeline-title">Joined</span>
-            <span className="wl-pipeline-check"><Check size={13} /></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
-    <section className="wl-hero">
-      <div className="wl-hero-copy">
-        <div className="wl-eyebrow-wrap">
-          <span className="wl-eyebrow-line"></span>
-          <p className="wl-eyebrow">ONE PARTNER. EVERY WORKFORCE NEED.</p>
-        </div>
-        <h1>
-          Hire the Right People
-          <br />
-          for <em className="wl-sector-highlight">Every Sector.</em>
-        </h1>
-        <p className="wl-lead">
-          From your first hire to your next hundred. We help businesses across
-          all industries find, hire and manage reliable, pre-screened talent —
-          faster, simpler and hassle-free.
-        </p>
-        <div className="wl-benefits">
-          {[
-            { Icon: Users, label: "Pre-screened", sub: "Candidates", tone: "0" },
-            { Icon: Zap, label: "Faster", sub: "Hiring", tone: "1" },
-            { Icon: IndianRupee, label: "No Upfront", sub: "Cost", tone: "2" },
-            { Icon: ShieldCheck, label: "Reliable", sub: "Workforce", tone: "3" },
-          ].map(({ Icon: I, label, sub, tone }) => (
-            <div className="wl-benefit-item" key={label}>
-              <span className={"wl-benefit-icon tone-" + tone}>
-                <I size={20} />
-              </span>
-              <span className="wl-benefit-text">
-                <strong>{label}</strong>
-                <small>{sub}</small>
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="wl-actions">
-          <a className="wl-button wl-primary-gradient" href="#hiring-requirement">
-            I'm looking to hire <ArrowUpRight size={18} />
-          </a>
-          <a className="wl-button wl-secondary" href="#solutions">
-            Explore our solutions
-          </a>
+    <section className="wl-exact-banner-section">
+      <div className="wl-banner-container">
+        <img
+          src="/hero-banner-exact.jpg"
+          alt="WorkLanceo - Hire the Right People for Every Sector"
+          className="wl-exact-banner-img"
+          width="1024"
+          height="332"
+          fetchPriority="high"
+        />
+        {/* Invisible clickable hotspots aligned over the banner buttons */}
+        <div className="wl-banner-hotspots" aria-hidden="true">
+          <a
+            href="#hiring-requirement"
+            className="wl-hotspot-hire"
+            title="I'm looking to hire"
+          />
+          <a
+            href="#solutions"
+            className="wl-hotspot-solutions"
+            title="Explore our solutions"
+          />
         </div>
       </div>
-      <HeroWorkforceCollage />
     </section>
   );
 }
 
 function StatsBar() {
-  const statsList = [
-    { Icon: Users, val: "500+", label: "Candidates Placed", color: "blue" },
-    { Icon: Building2, val: "100+", label: "Partner Companies", color: "blue" },
-    { Icon: Clock3, val: "30%", label: "Faster Hiring", color: "blue" },
-    { Icon: Star, val: "4.8/5", label: "Client Satisfaction", color: "green" },
-  ];
-
-  const stripIndustries: [string, Icon][] = [
-    ["Business Services", BriefcaseBusiness],
-    ["Retail & E-commerce", ShoppingCart],
-    ["Manufacturing", Factory],
-    ["Logistics & Delivery", Truck],
-    ["BPO & Customer Support", Headphones],
-    ["Hospitality", Building2],
-    ["Healthcare", HeartPulse],
-    ["And Many More", Globe2],
-  ];
-
-  return (
-    <div className="wl-trust-wrapper">
-      <div className="wl-trustbar">
-        <div className="wl-stats-group">
-          {statsList.map(({ Icon: I, val, label, color }) => (
-            <div className="wl-stat-item" key={label}>
-              <span className={"wl-stat-icon " + color}>
-                <I size={22} className={color === "green" ? "fill-green" : ""} />
-              </span>
-              <div className="wl-stat-info">
-                <strong>{val}</strong>
-                <span>{label}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="wl-trust-divider"></div>
-        <div className="wl-industries-group">
-          <p className="wl-strip-heading">
-            TRUSTED BY BUSINESSES
-            <br />
-            ACROSS ALL SECTORS
-          </p>
-          <div className="wl-strip-industries">
-            {stripIndustries.map(([name, I]) => (
-              <a href="/#industries" className="wl-strip-ind" key={name}>
-                <I size={18} />
-                <span>{name}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return null;
 }
 function HiringRequirementForm() {
   const [user, setUser] = useState<boolean | null>(null),
