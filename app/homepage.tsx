@@ -528,22 +528,6 @@ export default function Homepage() {
   return (
     <div className="wl-home">
       <Hero />
-      <section className="wl-industries wl-section" id="industries">
-        <p className="wl-eyebrow">ONE PARTNER. ALL SECTORS.</p>
-        <h2>Great people, across your industry.</h2>
-        <p>
-          From entry-level and frontline teams to skilled specialists, office
-          staff and leadership.
-        </p>
-        <div>
-          {industries.map(([name, I]) => (
-            <a href="/hire" key={name}>
-              <I size={26} />
-              <span>{name}</span>
-            </a>
-          ))}
-        </div>
-      </section>
       <section className="wl-section wl-process">
         <p className="wl-eyebrow">A CLEAR PATH FROM BRIEF TO JOINING</p>
         <h2>Hiring shouldn't be complicated.</h2>
