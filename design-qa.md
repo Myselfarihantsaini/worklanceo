@@ -26,3 +26,6 @@ The local homepage is running at http://localhost:5173/. This session exposes no
 - Exercise mobile menu, anchor CTA, native FAQ, form validation, Google continuation and successful/error submission with isolated test responses.
 - Check browser console and keyboard focus.
 - Repeat comparison after fixes, then change final result to passed.
+
+## Reference-composition refinement (28 September)
+Horizontal brand lockup now reuses the existing lotus asset with a navy/green wordmark. Desktop navigation matches the four reference links. The headline, supporting copy, benefit row, CTA sizing, broad collage placement, pipeline stack and combined industry/metrics strip were adjusted to reference proportions. At wide desktop the header is 98px and the hero 520px. Mobile remains stacked. Existing generated portraits are illustrative, not the exact reference photographs. Unverified numerical claims remain unpublished. Production build and TypeScript checks passed again. Visual comparison is still blocked; this refinement is not claimed pixel-exact or published.

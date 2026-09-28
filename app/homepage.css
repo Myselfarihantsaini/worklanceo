@@ -1212,3 +1212,632 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Reference composition: horizontal brand, broad hero and one combined strip. */
+.wl-nav .wl-brand,
+.wl-footer .wl-brand {
+  width: auto;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.wl-brand-symbol {
+  display: block;
+  width: 75px;
+  height: 68px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.wl-brand-symbol img {
+  display: block !important;
+  width: 98px !important;
+  height: auto !important;
+  max-width: none;
+  margin: -12px 0 0 -10px;
+  mix-blend-mode: multiply;
+}
+.wl-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  white-space: nowrap;
+}
+.wl-wordmark > strong {
+  font-size: 35px;
+  color: #041f46;
+  font-weight: 800;
+  letter-spacing: -1.6px;
+  line-height: 1.1;
+}
+.wl-wordmark > strong > span {
+  color: #078e45;
+}
+.wl-wordmark > small {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #657287;
+  margin-top: 8px;
+  font-weight: 700;
+}
+.wl-nav {
+  height: 96px;
+  min-height: 96px;
+  padding: 10px 3.8%;
+  gap: 32px;
+}
+.wl-nav .wl-links {
+  gap: 46px;
+}
+.wl-nav .wl-links a,
+.wl-nav .wl-workspace {
+  font-size: 16px;
+}
+.wl-nav .wl-button {
+  min-width: 180px;
+  background: linear-gradient(145deg, #0877e8, #0542ae);
+  border: 0;
+}
+.wl-hero {
+  max-width: none;
+  width: 100%;
+  min-height: 0;
+  height: 510px;
+  grid-template-columns: 43% 57%;
+  padding: 27px 0 0 3.8%;
+  background: linear-gradient(108deg, #fff 23%, #f1f7fb 62%, #e9f4f9);
+  position: relative;
+}
+.wl-hero-copy {
+  z-index: 2;
+  align-self: start;
+  padding-top: 0;
+}
+.wl-hero .wl-eyebrow {
+  font-size: 11px !important;
+  letter-spacing: 3.7px;
+  margin-bottom: 23px !important;
+}
+.wl-hero h1 {
+  font-size: clamp(43px, 3.85vw, 80px);
+  line-height: 1.03;
+  letter-spacing: -2px;
+  white-space: nowrap;
+}
+.wl-lead {
+  max-width: 760px;
+  font-size: clamp(16px, 1.17vw, 24px);
+  line-height: 1.25;
+  margin-top: 15px !important;
+}
+.wl-benefits {
+  gap: 26px;
+  margin: 28px 0 25px;
+}
+.wl-benefits > div {
+  font-size: 13px;
+  font-weight: 500;
+  gap: 12px;
+}
+.wl-benefit-icon {
+  width: 53px;
+  height: 56px;
+  border-radius: 15px;
+}
+.wl-hero .wl-button {
+  padding: 18px 29px;
+  font-size: 16px;
+  min-width: 230px;
+  gap: 25px;
+}
+.wl-hero .wl-button:not(.wl-secondary) {
+  background: linear-gradient(115deg, #0564dd, #004bb7 73%, #00c8e8);
+  border: 0;
+}
+.wl-hero .wl-secondary svg {
+  display: none;
+}
+.wl-terms {
+  font-size: 9px !important;
+  margin-top: 10px !important;
+}
+.wl-visual {
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+  margin: 0 0 0 8%;
+  align-self: end;
+}
+.wl-collage {
+  height: 100%;
+  max-height: none;
+  width: 100%;
+  margin: 0;
+  object-fit: cover;
+  object-position: center 35%;
+  border-radius: 0;
+}
+.wl-handwritten {
+  left: -3%;
+  top: 31%;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.wl-pipeline {
+  display: grid;
+  right: 3%;
+  top: 15%;
+  width: 205px;
+  gap: 10px;
+  transform: rotate(5deg);
+}
+.wl-pipeline > div {
+  height: 85px;
+  border-radius: 15px;
+  padding: 12px;
+  box-shadow: 0 7px 25px #062b5c10;
+}
+.wl-pipeline .wl-avatar {
+  height: 58px;
+  width: 48px;
+}
+.wl-pipeline strong {
+  font-size: 12px;
+}
+.wl-placement {
+  bottom: 12%;
+  left: 29%;
+  padding: 18px 22px;
+  z-index: 2;
+  border-radius: 15px;
+  white-space: nowrap;
+}
+.wl-placement strong {
+  font-size: 15px;
+}
+.wl-placement p {
+  font-size: 13px;
+}
+.wl-reference-strip {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 10px 2.3% 26px;
+  padding: 22px 22px;
+  background: #f9fcff;
+  border: 1px solid #edf3f8;
+  border-radius: 20px;
+  box-shadow: 0 12px 50px #0877e805;
+  min-height: 104px;
+}
+.wl-reference-strip .wl-trustbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex: 0 1 43%;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.wl-reference-strip .wl-trustbar > div {
+  padding: 0 18px;
+  column-gap: 10px;
+  grid-template-columns: 28px auto;
+}
+.wl-reference-strip .wl-trustbar strong {
+  font-size: 17px;
+}
+.wl-reference-strip .wl-trustbar span {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.wl-strip-heading {
+  font-size: 9px !important;
+  color: #657287;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  line-height: 1.7 !important;
+}
+.wl-strip-industries {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.wl-strip-industries a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  text-decoration: none;
+  border-left: 1px solid #edf2f8;
+  padding-left: 6px;
+}
+.wl-strip-industries svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1.7;
+}
+.wl-strip-industries span {
+  font-size: 10px;
+  line-height: 1.3;
+  color: #53677d;
+}
+@media (min-width: 1800px) {
+  .wl-hero {
+    height: 520px;
+    padding-top: 30px;
+  }
+  .wl-nav {
+    height: 98px;
+  }
+  .wl-wordmark > strong {
+    font-size: 43px;
+  }
+  .wl-wordmark > small {
+    font-size: 10px;
+  }
+  .wl-brand-symbol {
+    width: 90px;
+    height: 75px;
+  }
+  .wl-brand-symbol img {
+    width: 114px !important;
+    margin-top: -15px;
+  }
+  .wl-benefits {
+    margin: 30px 0;
+    gap: 35px;
+  }
+  .wl-benefit-icon {
+    width: 66px;
+    height: 66px;
+  }
+  .wl-benefits > div {
+    font-size: 16px;
+  }
+  .wl-hero .wl-button {
+    min-width: 277px;
+    font-size: 19px;
+    padding: 19px 35px;
+  }
+  .wl-visual {
+    margin-left: 5%;
+  }
+  .wl-pipeline {
+    width: 250px;
+    right: 4%;
+    top: 14%;
+  }
+  .wl-pipeline > div {
+    height: 101px;
+  }
+  .wl-pipeline strong {
+    font-size: 14px;
+  }
+  .wl-handwritten {
+    font-size: 29px;
+    left: -1%;
+    top: 33%;
+  }
+  .wl-placement strong {
+    font-size: 17px;
+  }
+  .wl-placement p {
+    font-size: 16px;
+  }
+  .wl-placement {
+    left: 30%;
+    bottom: 11%;
+    padding: 20px 25px;
+  }
+  .wl-reference-strip {
+    min-height: 108px;
+    margin-top: 10px;
+  }
+  .wl-reference-strip .wl-trustbar strong {
+    font-size: 21px;
+  }
+  .wl-reference-strip .wl-trustbar span {
+    font-size: 12px;
+  }
+  .wl-strip-industries span {
+    font-size: 12px;
+  }
+  .wl-strip-heading {
+    font-size: 11px !important;
+  }
+  .wl-reference-strip .wl-trustbar {
+    flex-basis: 43%;
+  }
+  .wl-strip-industries {
+    gap: 24px;
+  }
+}
+@media (max-width: 1450px) {
+  .wl-nav .wl-links {
+    gap: 24px;
+  }
+  .wl-nav .wl-links a,
+  .wl-nav .wl-workspace {
+    font-size: 13px;
+  }
+  .wl-wordmark > strong {
+    font-size: 29px;
+  }
+  .wl-wordmark > small {
+    font-size: 7px;
+    letter-spacing: 1.3px;
+  }
+  .wl-brand-symbol {
+    width: 60px;
+    height: 61px;
+  }
+  .wl-brand-symbol img {
+    width: 85px !important;
+  }
+  .wl-nav .wl-button {
+    min-width: 145px;
+  }
+  .wl-benefits {
+    gap: 15px;
+  }
+  .wl-benefits > div {
+    font-size: 11px;
+    gap: 8px;
+  }
+  .wl-benefit-icon {
+    width: 44px;
+    height: 48px;
+  }
+  .wl-hero {
+    height: 470px;
+  }
+  .wl-hero .wl-button {
+    min-width: 0;
+    padding: 17px 23px;
+    font-size: 14px;
+  }
+  .wl-handwritten {
+    font-size: 21px;
+    left: -5%;
+  }
+  .wl-placement {
+    left: 14%;
+    padding: 14px;
+  }
+  .wl-pipeline {
+    width: 174px;
+  }
+  .wl-pipeline > div {
+    height: 78px;
+  }
+  .wl-reference-strip {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .wl-reference-strip .wl-trustbar {
+    flex: 1;
+  }
+  .wl-strip-industries {
+    flex-basis: 100%;
+  }
+  .wl-strip-heading {
+    padding-right: 15px;
+  }
+  .wl-strip-industries a {
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+  }
+  .wl-strip-industries span {
+    max-width: 80px;
+    text-align: left;
+  }
+}
+@media (max-width: 1050px) {
+  .wl-nav .wl-workspace {
+    display: none;
+  }
+  .wl-nav .wl-links {
+    gap: 15px;
+  }
+  .wl-nav {
+    gap: 20px;
+  }
+  .wl-hero {
+    height: 470px;
+    grid-template-columns: 48% 52%;
+  }
+  .wl-hero h1 {
+    font-size: 40px;
+    white-space: normal;
+  }
+  .wl-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 0;
+  }
+  .wl-lead {
+    line-height: 1.45;
+  }
+  .wl-handwritten {
+    font-size: 18px;
+    left: 0;
+    top: 10%;
+  }
+  .wl-pipeline {
+    display: none;
+  }
+  .wl-placement {
+    left: 5%;
+    bottom: 8%;
+    white-space: normal;
+  }
+  .wl-visual {
+    margin-left: 0;
+  }
+  .wl-hero .wl-actions {
+    gap: 10px;
+  }
+  .wl-hero .wl-button {
+    padding: 14px 18px;
+    font-size: 12px;
+  }
+  .wl-reference-strip .wl-trustbar strong {
+    font-size: 15px;
+  }
+  .wl-strip-industries {
+    gap: 10px;
+  }
+  .wl-strip-industries a {
+    flex-direction: column;
+  }
+  .wl-strip-industries span {
+    text-align: center;
+  }
+}
+@media (max-width: 650px) {
+  .wl-nav {
+    height: 80px;
+    min-height: 80px;
+    padding: 8px 16px;
+    gap: 8px;
+  }
+  .wl-brand-symbol {
+    width: 42px;
+    height: 44px;
+  }
+  .wl-brand-symbol img {
+    width: 62px !important;
+    margin-top: -10px;
+    margin-left: -7px;
+  }
+  .wl-wordmark > strong {
+    font-size: 21px;
+    letter-spacing: -1px;
+  }
+  .wl-wordmark > small {
+    font-size: 4.9px;
+    letter-spacing: 0.6px;
+    margin-top: 4px;
+  }
+  .wl-nav .wl-brand {
+    gap: 3px;
+  }
+  .wl-nav .wl-button {
+    min-width: 0;
+    padding: 12px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
+  .wl-nav .wl-button svg {
+    width: 13px;
+  }
+  .wl-nav .wl-menu {
+    padding: 6px;
+  }
+  .wl-hero {
+    height: auto;
+    display: flex;
+    padding: 30px 22px 0;
+  }
+  .wl-hero h1 {
+    font-size: clamp(32px, 8.7vw, 48px);
+    line-height: 1.08;
+    white-space: normal;
+    letter-spacing: -1.5px;
+  }
+  .wl-hero .wl-eyebrow {
+    font-size: 8px !important;
+    letter-spacing: 1.6px;
+    margin-bottom: 22px !important;
+  }
+  .wl-lead {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .wl-benefits {
+    gap: 17px;
+    margin: 25px 0;
+  }
+  .wl-benefits > div {
+    font-size: 12px;
+    gap: 10px;
+  }
+  .wl-hero .wl-button {
+    font-size: 14px;
+    padding: 16px;
+    width: 100%;
+  }
+  .wl-terms {
+    font-size: 8px !important;
+  }
+  .wl-visual {
+    height: 330px;
+    margin: 20px -22px 0;
+    width: calc(100% + 44px);
+  }
+  .wl-collage {
+    width: 100%;
+    height: 330px;
+    object-position: center;
+  }
+  .wl-handwritten {
+    font-size: 17px;
+    top: 12%;
+    left: 4%;
+  }
+  .wl-placement {
+    left: 29%;
+    bottom: 8%;
+    padding: 12px;
+  }
+  .wl-placement strong {
+    font-size: 11px;
+  }
+  .wl-placement p {
+    font-size: 10px;
+  }
+  .wl-reference-strip {
+    margin: 12px 14px 10px;
+    padding: 20px 10px;
+    gap: 18px;
+    border-radius: 15px;
+  }
+  .wl-reference-strip .wl-trustbar {
+    flex-basis: 100%;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+  }
+  .wl-reference-strip .wl-trustbar > div {
+    padding: 0 10px;
+    column-gap: 8px;
+  }
+  .wl-reference-strip .wl-trustbar strong {
+    font-size: 14px;
+  }
+  .wl-strip-heading {
+    text-align: center;
+    width: 100%;
+    font-size: 8px !important;
+  }
+  .wl-strip-industries {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 18px;
+    gap: 12px;
+  }
+  .wl-strip-industries span {
+    font-size: 9px;
+  }
+  .wl-strip-industries svg {
+    width: 22px;
+    height: 22px;
+  }
+  .wl-footer .wl-brand {
+    width: auto;
+  }
+}

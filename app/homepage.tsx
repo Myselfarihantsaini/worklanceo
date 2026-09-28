@@ -120,13 +120,15 @@ function CTA({
 function Brand() {
   return (
     <a className="wl-brand" href="/" aria-label="WorkLanceo home">
-      <img
-        src="/worklanceo-logo.png"
-        width="646"
-        height="590"
-        alt="WorkLanceo"
-      />
-      <span>PEOPLE · POSSIBILITIES · PROGRESS</span>
+      <span className="wl-brand-symbol">
+        <img src="/worklanceo-logo.png" width="646" height="590" alt="" />
+      </span>
+      <span className="wl-wordmark">
+        <strong>
+          Work<span>Lanceo</span>
+        </strong>
+        <small>PEOPLE · POSSIBILITIES · PROGRESS</small>
+      </span>
     </a>
   );
 }
@@ -150,7 +152,6 @@ export function Navbar() {
         {[
           ["For Employers", "/hire"],
           ["Our Solutions", "/solutions"],
-          ["Industries", "/#industries"],
           ["Resources", "/resources"],
           ["About Us", "/about"],
         ].map(([text, url]) => (
@@ -241,9 +242,9 @@ function Hero() {
           for <em>Every Sector.</em>
         </h1>
         <p className="wl-lead">
-          From your first hire to your next hundred, WorkLanceo helps businesses
-          across industries find, screen and hire reliable talent — faster,
-          simpler and hassle-free.
+          From your first hire to your next hundred. We help businesses across
+          all industries find, hire and manage reliable, pre-screened talent —
+          faster, simpler and hassle-free.
         </p>
         <div className="wl-benefits">
           {(
@@ -267,9 +268,9 @@ function Hero() {
           ))}
         </div>
         <div className="wl-actions">
-          <CTA href="#hiring-requirement">I'm Looking to Hire</CTA>
+          <CTA href="#hiring-requirement">I'm looking to hire</CTA>
           <CTA href="#solutions" secondary>
-            Explore Our Solutions
+            Explore our solutions
           </CTA>
         </div>
         <p className="wl-terms">
@@ -283,44 +284,55 @@ function Hero() {
 }
 function StatsBar() {
   const verified = companyMetrics.filter((x) => x.verified && x.value);
+  const stripIndustries = [...industries.slice(0, 7), industries[12]];
   return (
-    <div className="wl-trustbar">
-      {verified.length ? (
-        verified.map((x) => (
-          <div key={x.label}>
-            <strong>{x.value}</strong>
-            <span>{x.label}</span>
-          </div>
-        ))
-      ) : (
-        <>
-          <div>
-            <Users />
-            <strong>Every sector</strong>
-            <span>One hiring partner</span>
-          </div>
-          <div>
-            <Building2 />
-            <strong>1 to 100+</strong>
-            <span>Plan your team size</span>
-          </div>
-          <div>
-            <FileCheck2 />
-            <strong>4 clear steps</strong>
-            <span>Brief to joining</span>
-          </div>
-          <div>
-            <Handshake />
-            <strong>People first</strong>
-            <span>Dedicated coordination</span>
-          </div>
-        </>
-      )}
-      <p>
+    <div className="wl-reference-strip">
+      <div className="wl-trustbar">
+        {verified.length ? (
+          verified.map((x) => (
+            <div key={x.label}>
+              <strong>{x.value}</strong>
+              <span>{x.label}</span>
+            </div>
+          ))
+        ) : (
+          <>
+            <div>
+              <Users />
+              <strong>Every sector</strong>
+              <span>One hiring partner</span>
+            </div>
+            <div>
+              <Building2 />
+              <strong>1 to 100+</strong>
+              <span>Plan your team size</span>
+            </div>
+            <div>
+              <Clock3 />
+              <strong>4 clear steps</strong>
+              <span>Brief to joining</span>
+            </div>
+            <div>
+              <Handshake />
+              <strong>People first</strong>
+              <span>Dedicated coordination</span>
+            </div>
+          </>
+        )}
+      </div>
+      <p className="wl-strip-heading">
         WORKFORCE SOLUTIONS
         <br />
-        <b>ACROSS ALL SECTORS</b>
+        ACROSS ALL SECTORS
       </p>
+      <div className="wl-strip-industries">
+        {stripIndustries.map(([name, I]) => (
+          <a href="/#industries" key={name}>
+            <I />
+            <span>{name}</span>
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
@@ -559,7 +571,6 @@ export function Footer() {
             "For Employers",
             ["Start Hiring", "/hire"],
             ["Hiring Solutions", "/solutions"],
-            ["Industries", "/#industries"],
             ["Bulk Hiring", "/#solution-bulk-hiring"],
           ],
           [
