@@ -247,61 +247,7 @@ function Hero() {
   );
 }
 
-function StatsBar() {
-  const sectors: [string, Icon][] = [
-    ["Business Services", BriefcaseBusiness],
-    ["Retail & E-commerce", ShoppingCart],
-    ["Manufacturing", Factory],
-    ["Logistics & Delivery", Truck],
-    ["BPO & Customer Support", Headphones],
-    ["Hospitality", Building2],
-    ["Healthcare", HeartPulse],
-    ["And Many More", Globe2],
-  ];
-  return (
-    <div className="wl-trust-wrapper" aria-label="WorkLanceo highlights">
-      <section className="wl-trustbar">
-        <div className="wl-stats-group">
-          {[
-            [Users, "500+", "Candidates Placed", "blue"],
-            [Building2, "100+", "Partner Companies", "blue"],
-            [Clock3, "30%", "Faster Hiring", "blue"],
-            [Star, "4.8/5", "Client Satisfaction", "green"],
-          ].map(([StatIcon, number, label, colour]) => {
-            const ItemIcon = StatIcon as Icon;
-            return (
-              <div className="wl-stat-item" key={String(label)}>
-                <span className={`wl-stat-icon ${colour}`}>
-                  <ItemIcon size={30} strokeWidth={2} />
-                </span>
-                <span className="wl-stat-info">
-                  <strong>{String(number)}</strong>
-                  <span>{String(label)}</span>
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <span className="wl-trust-divider" aria-hidden="true" />
-        <div className="wl-industries-group">
-          <p className="wl-strip-heading">
-            Trusted by businesses
-            <br />
-            across all sectors
-          </p>
-          <div className="wl-strip-industries">
-            {sectors.map(([label, SectorIcon]) => (
-              <a className="wl-strip-ind" href="#industries" key={label}>
-                <SectorIcon size={25} strokeWidth={1.8} />
-                <span>{label}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+
 function HiringRequirementForm() {
   const [user, setUser] = useState<boolean | null>(null),
     [message, setMessage] = useState(""),
@@ -582,7 +528,6 @@ export default function Homepage() {
   return (
     <div className="wl-home">
       <Hero />
-      <StatsBar />
       <section className="wl-industries wl-section" id="industries">
         <p className="wl-eyebrow">ONE PARTNER. ALL SECTORS.</p>
         <h2>Great people, across your industry.</h2>
