@@ -201,7 +201,7 @@
 .wl-section {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 50px 5%;
+  padding: 32px 5%;
   scroll-margin-top: 100px;
 }
 .wl-section h2 {
@@ -216,163 +216,127 @@
   color: #657287;
   font-size: 15px;
   line-height: 1.65;
-  margin-top: 14px;
+  margin-top: 10px;
   max-width: 680px;
-}
-.wl-industries {
-  text-align: center;
-  padding-top: 35px;
-  padding-bottom: 45px;
-}
-.wl-industries > p {
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-.wl-industries > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 32px;
-}
-.wl-industries a {
-  width: 136px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 13px;
-  border: 1px solid #e5ebf2;
-  border-radius: 13px;
-  padding: 22px 10px;
-  text-decoration: none;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-.wl-industries a:hover {
-  transform: translateY(-4px);
-  background: #eaf8f1;
-}
-.wl-industries span {
-  font-size: 12px;
-  line-height: 1.5;
-  max-width: 110px;
 }
 .wl-process {
   background: #f6faff;
-  border-radius: 24px;
+  border-radius: 20px;
+  padding: 34px 38px;
 }
 .wl-process > div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-top: 40px;
+  gap: 20px;
+  margin-top: 24px;
 }
 .wl-process article {
   border-top: 1px solid #cbd9e7;
-  padding-top: 25px;
+  padding-top: 18px;
 }
 .wl-process article > span {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
   background: #e2efff;
   color: #0066cc;
   font-weight: 700;
 }
 .wl-process h3 {
-  font-size: 18px;
-  margin-top: 20px;
+  font-size: 17px;
+  margin-top: 14px;
 }
 .wl-process article p {
-  font-size: 14px;
+  font-size: 13.5px;
   color: #657287;
-  line-height: 1.65;
-  margin-top: 10px;
+  line-height: 1.55;
+  margin-top: 8px;
 }
 .wl-solutions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 35px;
+  gap: 16px;
+  margin-top: 22px;
 }
 .wl-solutions article {
-  padding: 27px 23px;
+  padding: 20px 18px;
   border: 1px solid #e5ebf2;
-  border-radius: 17px;
+  border-radius: 15px;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
   scroll-margin-top: 115px;
 }
 .wl-solutions article:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px #062b5c0b;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px #062b5c0b;
 }
 .wl-solutions article > svg {
   color: #0d9b5f;
 }
 .wl-solutions h3 {
-  font-size: 18px;
-  margin: 20px 0 12px;
+  font-size: 17px;
+  margin: 14px 0 8px;
   line-height: 1.35;
 }
 .wl-solutions p {
-  font-size: 14px;
+  font-size: 13.5px;
   color: #657287;
-  line-height: 1.7;
-  min-height: 72px;
+  line-height: 1.55;
+  min-height: 0;
 }
 .wl-solutions a,
 .wl-form-section > div > a {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-weight: 650;
   color: #0767cb;
   font-size: 13px;
-  margin-top: 20px;
+  margin-top: 14px;
   text-decoration: none;
 }
 .wl-why {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 70px;
+  gap: 40px;
   background: #f5faf7;
-  border-radius: 24px;
+  border-radius: 20px;
+  padding: 34px 38px;
 }
 .wl-why .wl-button {
-  margin-top: 26px;
+  margin-top: 20px;
 }
 .wl-why > div + div {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 17px;
+  gap: 12px;
 }
 .wl-why article {
-  padding: 22px 16px;
+  padding: 16px 14px;
   border: 1px solid #e1eee6;
-  border-radius: 12px;
+  border-radius: 11px;
   background: white;
 }
 .wl-why article svg {
   color: #0d9b5f;
 }
 .wl-why h3 {
-  font-size: 14px;
-  line-height: 1.5;
-  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  margin-top: 8px;
 }
 .wl-employer-cta {
-  margin: 55px auto 0;
+  margin: 28px auto 0;
   background: #062b5c;
-  border-radius: 24px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 45px;
+  gap: 32px;
+  padding: 34px 38px;
 }
 .wl-employer-cta h2 {
   color: #fff;
@@ -392,18 +356,19 @@
 .wl-form-section {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  gap: 60px;
+  gap: 36px;
+  padding: 32px 5%;
 }
 .wl-form-section ul {
   padding: 0;
   list-style: none;
-  margin-top: 28px;
+  margin-top: 18px;
 }
 .wl-form-section li {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin: 20px 0;
+  margin: 12px 0;
   font-size: 14px;
   color: #53677d;
 }
@@ -413,31 +378,31 @@
 }
 .wl-form-section form {
   border: 1px solid #e5ebf2;
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 12px 35px #062b5c05;
+  border-radius: 16px;
+  padding: 24px 26px;
+  box-shadow: 0 10px 28px #062b5c05;
 }
 .wl-form-section form h3 {
-  font-size: 23px;
+  font-size: 21px;
 }
 .wl-form-section form > p {
   font-size: 12px;
   color: #657287;
-  line-height: 1.7;
-  margin: 12px 0 25px;
+  line-height: 1.6;
+  margin: 8px 0 18px;
 }
 .wl-form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 17px;
+  gap: 12px;
 }
 .wl-form-section label {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.5;
   min-width: 0;
 }
 .wl-form-section input,
@@ -447,21 +412,21 @@
   min-width: 0;
   border: 1px solid #d6e0eb;
   border-radius: 7px;
-  padding: 10px 12px;
+  padding: 9px 12px;
   font: inherit;
   font-weight: 400;
   color: #062b5c;
   background: #fff;
-  min-height: 43px;
+  min-height: 40px;
 }
 .wl-form-section form > label {
-  margin-top: 18px;
+  margin-top: 14px;
 }
 .wl-form-section .wl-consent {
   flex-direction: row;
   align-items: start;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 .wl-consent input {
   width: 16px;
@@ -475,58 +440,59 @@
 .wl-form-section .wl-error {
   color: #ab2424;
   background: #fff0f0;
-  padding: 13px;
+  padding: 12px;
 }
 .wl-form-section .wl-success {
   color: #0b6a40;
   background: #eaf8f1;
-  padding: 13px;
+  padding: 12px;
 }
 .wl-candidate {
   background: #f2f7fc;
-  border-radius: 20px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 35px;
-  padding-top: 42px;
-  padding-bottom: 42px;
+  gap: 28px;
+  padding: 26px 32px;
+  margin: 28px auto 0;
 }
 .wl-candidate h2 {
-  font-size: 29px;
+  font-size: 26px;
 }
 .wl-candidate .wl-button {
   flex-shrink: 0;
 }
 .wl-faq {
   max-width: 1050px;
+  padding: 32px 5%;
 }
 .wl-faq details {
   border-bottom: 1px solid #e5ebf2;
-  padding: 23px 0;
+  padding: 14px 0;
 }
 .wl-faq summary {
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 650;
 }
 .wl-faq details p {
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 13.5px;
+  line-height: 1.7;
   color: #657287;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 .wl-footer {
   background: #f7faff;
   border-top: 1px solid #e5ebf2;
-  padding: 50px 5% 20px;
+  padding: 36px 5% 18px;
 }
 .wl-footer-grid {
   max-width: 1300px;
   margin: auto;
   display: grid;
   grid-template-columns: 1.4fr repeat(4, 1fr);
-  gap: 35px;
+  gap: 24px;
 }
 .wl-footer-grid > div {
   display: flex;
@@ -1022,9 +988,9 @@
   grid-template-columns: 43% 57%;
   gap: 0;
   max-width: none;
-  min-height: 510px;
+  min-height: auto;
   margin: 0 auto;
-  padding: 30px 0 0 3.8%;
+  padding: 18px 0 0 3.8%;
   background: linear-gradient(90deg, #fff 0%, #fbfdff 42%, #eff9fd 100%);
   overflow: hidden;
 }
@@ -1032,7 +998,7 @@
   position: relative;
   z-index: 1;
   align-self: center;
-  padding: 0 16px 30px 0;
+  padding: 0 16px 18px 0;
 }
 .wl-eyebrow {
   display: flex;
@@ -1050,7 +1016,7 @@
   background: #139b5b;
 }
 .wl-hero h1 {
-  margin: 24px 0 0;
+  margin: 16px 0 0;
   color: #061d49;
   font-size: clamp(48px, 4.2vw, 76px);
   font-weight: 800;
@@ -1063,7 +1029,7 @@
 }
 .wl-lead {
   max-width: 700px;
-  margin-top: 12px;
+  margin-top: 10px;
   color: #657287;
   font-size: clamp(16px, 1.15vw, 21px);
   line-height: 1.42;
@@ -1071,9 +1037,9 @@
 .wl-benefits {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px;
   max-width: 720px;
-  margin-top: 24px;
+  margin-top: 18px;
 }
 .wl-benefit {
   display: flex;
@@ -1087,10 +1053,10 @@
 .wl-benefit-icon {
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
-  flex: 0 0 58px;
-  border-radius: 13px;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  border-radius: 12px;
 }
 .wl-benefit-icon.blue {
   color: #2460e9;
@@ -1111,14 +1077,14 @@
 .wl-hero .wl-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-top: 18px;
 }
 .wl-hero .wl-button {
-  min-height: 58px;
-  padding: 16px 28px;
+  min-height: 50px;
+  padding: 13px 24px;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 14.5px;
   justify-content: center;
 }
 .wl-collage-wrapper {
