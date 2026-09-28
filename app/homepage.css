@@ -140,6 +140,63 @@
 .wl-mobile-workspace {
   display: none;
 }
+.wl-exact-banner-section {
+  width: 100%;
+  background: #ffffff;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wl-banner-container {
+  position: relative;
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  line-height: 0;
+}
+.wl-exact-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.wl-banner-hotspots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.wl-hotspot-hire {
+  position: absolute;
+  left: 3.6%;
+  top: 79%;
+  width: 14.2%;
+  height: 12.5%;
+  pointer-events: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wl-hotspot-hire:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.wl-hotspot-solutions {
+  position: absolute;
+  left: 18.5%;
+  top: 79%;
+  width: 13.5%;
+  height: 12.5%;
+  pointer-events: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wl-hotspot-solutions:hover {
+  background: rgba(0, 98, 255, 0.08);
+}
 .wl-trust-wrapper {
   max-width: 1500px;
   margin: 0 auto;
