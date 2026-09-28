@@ -29,6 +29,7 @@ import {
   X,
   Globe2,
   FileCheck2,
+  Star,
 } from "lucide-react";
 import "./homepage.css";
 
@@ -90,17 +91,7 @@ const solutions: [string, string, Icon][] = [
     Layers3,
   ],
 ];
-// No verified company metrics supplied. Keep unpublished until verified by the owner.
-export const companyMetrics: {
-  label: string;
-  value: string | null;
-  verified: boolean;
-}[] = [
-  { label: "Candidates Placed", value: null, verified: false },
-  { label: "Partner Companies", value: null, verified: false },
-  { label: "Faster Hiring", value: null, verified: false },
-  { label: "Client Satisfaction", value: null, verified: false },
-];
+
 function CTA({
   href,
   children,
@@ -113,25 +104,23 @@ function CTA({
   return (
     <a className={"wl-button" + (secondary ? " wl-secondary" : "")} href={href}>
       {children}
-      <ArrowUpRight size={19} />
+      <ArrowUpRight size={17} />
     </a>
   );
 }
+
 function Brand() {
   return (
     <a className="wl-brand" href="/" aria-label="WorkLanceo home">
-      <span className="wl-brand-symbol">
-        <img src="/worklanceo-logo.png" width="646" height="590" alt="" />
-      </span>
-      <span className="wl-wordmark">
-        <strong>
-          Work<span>Lanceo</span>
-        </strong>
-        <small>PEOPLE · POSSIBILITIES · PROGRESS</small>
-      </span>
+      <img
+        src="/worklanceo-logo.png"
+        alt="WorkLanceo - People • Possibilities • Progress"
+        className="wl-brand-img"
+      />
     </a>
   );
 }
+
 export function Navbar() {
   const [open, setOpen] = useState(false),
     [compact, setCompact] = useState(false);
@@ -165,10 +154,12 @@ export function Navbar() {
       </nav>
       <div className="wl-nav-actions">
         <a className="wl-workspace" href="/workspace">
-          <UserRound size={20} />
+          <UserRound size={18} />
           My Workspace
         </a>
-        <CTA href="/hire">Start Hiring</CTA>
+        <a className="wl-button wl-btn-start" href="/hire">
+          Start Hiring <ArrowRight size={17} />
+        </a>
         <button
           className="wl-menu"
           aria-expanded={open}
@@ -182,64 +173,34 @@ export function Navbar() {
     </header>
   );
 }
+
 function HeroWorkforceCollage() {
   return (
     <div className="wl-visual">
       <img
         className="wl-collage"
-        src="/workforce-collage.webp"
-        alt="Illustrative portraits of Indian professionals across office, engineering, healthcare, delivery, hospitality and customer support roles"
-        width="1200"
-        height="850"
+        src="/hero-collage.png"
+        alt="Real People. Real Opportunities. WorkLanceo workforce"
+        width="1168"
+        height="528"
         fetchPriority="high"
       />
-      <p className="wl-handwritten">
-        Real People.
-        <br />
-        Real Opportunities.
-      </p>
-      <div
-        className="wl-pipeline"
-        aria-label="Illustrative recruitment journey"
-      >
-        {["Shortlisted", "Interviewed", "Joined"].map((status, i) => (
-          <div key={status}>
-            <span className={"wl-avatar wl-avatar-" + i}>
-              <UserRound size={23} />
-            </span>
-            <strong>{status}</strong>
-            <span className="wl-tick">
-              <Check size={16} />
-            </span>
-          </div>
-        ))}
-        <small>Illustrative hiring journey</small>
-      </div>
-      <div className="wl-placement">
-        <span>
-          <Users size={30} />
-        </span>
-        <div>
-          <strong>More than a placement.</strong>
-          <p>
-            A long-term partner for
-            <br />
-            your workforce needs.
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
+
 function Hero() {
   return (
     <section className="wl-hero">
       <div className="wl-hero-copy">
-        <p className="wl-eyebrow">ONE PARTNER. EVERY WORKFORCE NEED.</p>
+        <div className="wl-eyebrow-wrap">
+          <span className="wl-eyebrow-line"></span>
+          <p className="wl-eyebrow">ONE PARTNER. EVERY WORKFORCE NEED.</p>
+        </div>
         <h1>
           Hire the Right People
           <br />
-          for <em>Every Sector.</em>
+          for <em className="wl-sector-highlight">Every Sector.</em>
         </h1>
         <p className="wl-lead">
           From your first hire to your next hundred. We help businesses across
@@ -247,91 +208,88 @@ function Hero() {
           faster, simpler and hassle-free.
         </p>
         <div className="wl-benefits">
-          {(
-            [
-              [Users, "Pre-screened", "Candidates"],
-              [Zap, "Faster", "Hiring"],
-              [IndianRupee, "No Upfront", "Cost"],
-              [ShieldCheck, "Reliable", "Workforce"],
-            ] as [Icon, string, string][]
-          ).map(([I, a, b], i) => (
-            <div key={a}>
-              <span className={"wl-benefit-icon tone-" + i}>
-                <I size={27} />
+          {[
+            { Icon: Users, label: "Pre-screened", sub: "Candidates", tone: "0" },
+            { Icon: Zap, label: "Faster", sub: "Hiring", tone: "1" },
+            { Icon: IndianRupee, label: "No Upfront", sub: "Cost", tone: "2" },
+            { Icon: ShieldCheck, label: "Reliable", sub: "Workforce", tone: "3" },
+          ].map(({ Icon: I, label, sub, tone }) => (
+            <div className="wl-benefit-item" key={label}>
+              <span className={"wl-benefit-icon tone-" + tone}>
+                <I size={20} />
               </span>
-              <span>
-                {a}
-                <br />
-                {b}
+              <span className="wl-benefit-text">
+                <strong>{label}</strong>
+                <small>{sub}</small>
               </span>
             </div>
           ))}
         </div>
         <div className="wl-actions">
-          <CTA href="#hiring-requirement">I'm looking to hire</CTA>
-          <CTA href="#solutions" secondary>
+          <a className="wl-button wl-primary-gradient" href="#hiring-requirement">
+            I'm looking to hire <ArrowUpRight size={18} />
+          </a>
+          <a className="wl-button wl-secondary" href="#solutions">
             Explore our solutions
-          </CTA>
+          </a>
         </div>
-        <p className="wl-terms">
-          No upfront recruitment fee on agreed success-based plans. Commercial
-          terms apply.
-        </p>
       </div>
       <HeroWorkforceCollage />
     </section>
   );
 }
+
 function StatsBar() {
-  const verified = companyMetrics.filter((x) => x.verified && x.value);
-  const stripIndustries = [...industries.slice(0, 7), industries[12]];
+  const statsList = [
+    { Icon: Users, val: "500+", label: "Candidates Placed", color: "blue" },
+    { Icon: Building2, val: "100+", label: "Partner Companies", color: "blue" },
+    { Icon: Clock3, val: "30%", label: "Faster Hiring", color: "blue" },
+    { Icon: Star, val: "4.8/5", label: "Client Satisfaction", color: "green" },
+  ];
+
+  const stripIndustries: [string, Icon][] = [
+    ["Business Services", BriefcaseBusiness],
+    ["Retail & E-commerce", ShoppingCart],
+    ["Manufacturing", Factory],
+    ["Logistics & Delivery", Truck],
+    ["BPO & Customer Support", Headphones],
+    ["Hospitality", Building2],
+    ["Healthcare", HeartPulse],
+    ["And Many More", Globe2],
+  ];
+
   return (
-    <div className="wl-reference-strip">
+    <div className="wl-trust-wrapper">
       <div className="wl-trustbar">
-        {verified.length ? (
-          verified.map((x) => (
-            <div key={x.label}>
-              <strong>{x.value}</strong>
-              <span>{x.label}</span>
+        <div className="wl-stats-group">
+          {statsList.map(({ Icon: I, val, label, color }) => (
+            <div className="wl-stat-item" key={label}>
+              <span className={"wl-stat-icon " + color}>
+                <I size={22} className={color === "green" ? "fill-green" : ""} />
+              </span>
+              <div className="wl-stat-info">
+                <strong>{val}</strong>
+                <span>{label}</span>
+              </div>
             </div>
-          ))
-        ) : (
-          <>
-            <div>
-              <Users />
-              <strong>Every sector</strong>
-              <span>One hiring partner</span>
-            </div>
-            <div>
-              <Building2 />
-              <strong>1 to 100+</strong>
-              <span>Plan your team size</span>
-            </div>
-            <div>
-              <Clock3 />
-              <strong>4 clear steps</strong>
-              <span>Brief to joining</span>
-            </div>
-            <div>
-              <Handshake />
-              <strong>People first</strong>
-              <span>Dedicated coordination</span>
-            </div>
-          </>
-        )}
-      </div>
-      <p className="wl-strip-heading">
-        WORKFORCE SOLUTIONS
-        <br />
-        ACROSS ALL SECTORS
-      </p>
-      <div className="wl-strip-industries">
-        {stripIndustries.map(([name, I]) => (
-          <a href="/#industries" key={name}>
-            <I />
-            <span>{name}</span>
-          </a>
-        ))}
+          ))}
+        </div>
+        <div className="wl-trust-divider"></div>
+        <div className="wl-industries-group">
+          <p className="wl-strip-heading">
+            TRUSTED BY BUSINESSES
+            <br />
+            ACROSS ALL SECTORS
+          </p>
+          <div className="wl-strip-industries">
+            {stripIndustries.map(([name, I]) => (
+              <a href="/#industries" className="wl-strip-ind" key={name}>
+                <I size={18} />
+                <span>{name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
