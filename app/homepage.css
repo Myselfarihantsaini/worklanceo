@@ -140,63 +140,6 @@
 .wl-mobile-workspace {
   display: none;
 }
-.wl-exact-banner-section {
-  width: 100%;
-  background: #ffffff;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.wl-banner-container {
-  position: relative;
-  width: 100%;
-  max-width: 1540px;
-  margin: 0 auto;
-  line-height: 0;
-}
-.wl-exact-banner-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-.wl-banner-hotspots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.wl-hotspot-hire {
-  position: absolute;
-  left: 3.6%;
-  top: 64.5%;
-  width: 14.2%;
-  height: 9.6%;
-  pointer-events: auto;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.wl-hotspot-hire:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-.wl-hotspot-solutions {
-  position: absolute;
-  left: 18.5%;
-  top: 64.5%;
-  width: 13.5%;
-  height: 9.6%;
-  pointer-events: auto;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.wl-hotspot-solutions:hover {
-  background: rgba(0, 98, 255, 0.08);
-}
 .wl-trust-wrapper {
   max-width: 1500px;
   margin: 0 auto;
@@ -1170,21 +1113,108 @@
   padding: 0 3.8%;
 }
 .wl-hero {
+  display: grid;
   grid-template-columns: 43% 57%;
   gap: 0;
   max-width: none;
   min-height: 510px;
+  margin: 0 auto;
   padding: 30px 0 0 3.8%;
   background: linear-gradient(90deg, #fff 0%, #fbfdff 42%, #eff9fd 100%);
+  overflow: hidden;
+}
+.wl-hero-copy {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: 0 16px 30px 0;
+}
+.wl-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #657287;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 3.2px;
+  text-transform: uppercase;
+}
+.wl-eyebrow > span {
+  width: 58px;
+  height: 2px;
+  background: #139b5b;
 }
 .wl-hero h1 {
+  margin: 24px 0 0;
+  color: #061d49;
   font-size: clamp(48px, 4.2vw, 76px);
+  font-weight: 800;
+  letter-spacing: -3px;
   line-height: 1.02;
+}
+.wl-hero h1 em {
+  color: #149b4f;
+  font-style: normal;
 }
 .wl-lead {
   max-width: 700px;
+  margin-top: 12px;
+  color: #657287;
   font-size: clamp(16px, 1.15vw, 21px);
   line-height: 1.42;
+}
+.wl-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 720px;
+  margin-top: 24px;
+}
+.wl-benefit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #10274e;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.wl-benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  border-radius: 13px;
+}
+.wl-benefit-icon.blue {
+  color: #2460e9;
+  background: #edf3ff;
+}
+.wl-benefit-icon.green {
+  color: #0ba676;
+  background: #eafaf5;
+}
+.wl-benefit-icon.orange {
+  color: #e98620;
+  background: #fff3e8;
+}
+.wl-benefit-icon.purple {
+  color: #6948dc;
+  background: #f2efff;
+}
+.wl-hero .wl-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+.wl-hero .wl-button {
+  min-height: 58px;
+  padding: 16px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  justify-content: center;
 }
 .wl-collage-wrapper {
   align-self: stretch;
@@ -1232,6 +1262,9 @@
     display: grid;
     grid-template-columns: 1fr;
     padding: 42px 5% 0;
+  }
+  .wl-hero-copy {
+    padding-right: 0;
   }
   .wl-collage-wrapper {
     height: min(500px, 58vw);
@@ -1303,10 +1336,29 @@
   }
   .wl-hero {
     display: flex;
+    flex-direction: column;
     padding: 35px 22px 0;
   }
   .wl-hero h1 {
     font-size: clamp(36px, 10vw, 46px);
+    letter-spacing: -1.8px;
+  }
+  .wl-eyebrow {
+    gap: 9px;
+    font-size: 8px;
+    letter-spacing: 1.7px;
+  }
+  .wl-eyebrow > span {
+    width: 28px;
+  }
+  .wl-benefits {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 12px;
+  }
+  .wl-benefit-icon {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
   }
   .wl-collage-wrapper {
     width: calc(100% + 44px);

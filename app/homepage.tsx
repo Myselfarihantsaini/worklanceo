@@ -180,36 +180,127 @@ export function Navbar() {
 
 function Hero() {
   return (
-    <section className="wl-exact-banner-section">
-      <div className="wl-banner-container">
+    <section className="wl-hero" aria-labelledby="wl-hero-title">
+      <div className="wl-hero-copy">
+        <p className="wl-eyebrow">
+          <span aria-hidden="true" />
+          One partner. Every workforce need.
+        </p>
+        <h1 id="wl-hero-title">
+          Hire the Right People
+          <br />
+          for <em>Every Sector.</em>
+        </h1>
+        <p className="wl-lead">
+          From your first hire to your next hundred. We help businesses across
+          all industries find, hire and manage reliable, pre-screened talent —
+          faster, simpler and hassle-free.
+        </p>
+
+        <div className="wl-benefits" aria-label="Hiring benefits">
+          {[
+            [Users, "Pre-screened", "Candidates", "blue"],
+            [Zap, "Faster", "Hiring", "green"],
+            [IndianRupee, "No Upfront", "Cost", "orange"],
+            [ShieldCheck, "Reliable", "Workforce", "purple"],
+          ].map(([Icon, lineOne, lineTwo, colour]) => {
+            const BenefitIcon = Icon as Icon;
+            return (
+              <div className="wl-benefit" key={String(lineOne)}>
+                <span className={`wl-benefit-icon ${colour}`}>
+                  <BenefitIcon size={27} strokeWidth={2.25} />
+                </span>
+                <span>
+                  {String(lineOne)}
+                  <br />
+                  {String(lineTwo)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="wl-actions">
+          <a
+            className="wl-button wl-primary-gradient"
+            href="#hiring-requirement"
+          >
+            I&apos;m looking to hire <ArrowUpRight size={19} />
+          </a>
+          <a className="wl-button wl-secondary" href="#solutions">
+            Explore our solutions
+          </a>
+        </div>
+      </div>
+
+      <div className="wl-collage-wrapper">
         <img
-          src="/hero-banner-exact.jpg"
-          alt="WorkLanceo - Hire the Right People for Every Sector"
-          className="wl-exact-banner-img"
-          width="1024"
-          height="332"
+          src="/hero-collage.png"
+          alt="Professionals from logistics, healthcare, hospitality, retail and customer support"
+          className="wl-reference-collage"
+          width="1188"
+          height="528"
           fetchPriority="high"
         />
-        {/* Invisible clickable hotspots aligned over the banner buttons */}
-        <div className="wl-banner-hotspots" aria-hidden="true">
-          <a
-            href="#hiring-requirement"
-            className="wl-hotspot-hire"
-            title="I'm looking to hire"
-          />
-          <a
-            href="#solutions"
-            className="wl-hotspot-solutions"
-            title="Explore our solutions"
-          />
-        </div>
       </div>
     </section>
   );
 }
 
 function StatsBar() {
-  return null;
+  const sectors: [string, Icon][] = [
+    ["Business Services", BriefcaseBusiness],
+    ["Retail & E-commerce", ShoppingCart],
+    ["Manufacturing", Factory],
+    ["Logistics & Delivery", Truck],
+    ["BPO & Customer Support", Headphones],
+    ["Hospitality", Building2],
+    ["Healthcare", HeartPulse],
+    ["And Many More", Globe2],
+  ];
+  return (
+    <div className="wl-trust-wrapper" aria-label="WorkLanceo highlights">
+      <section className="wl-trustbar">
+        <div className="wl-stats-group">
+          {[
+            [Users, "500+", "Candidates Placed", "blue"],
+            [Building2, "100+", "Partner Companies", "blue"],
+            [Clock3, "30%", "Faster Hiring", "blue"],
+            [Star, "4.8/5", "Client Satisfaction", "green"],
+          ].map(([StatIcon, number, label, colour]) => {
+            const ItemIcon = StatIcon as Icon;
+            return (
+              <div className="wl-stat-item" key={String(label)}>
+                <span className={`wl-stat-icon ${colour}`}>
+                  <ItemIcon size={30} strokeWidth={2} />
+                </span>
+                <span className="wl-stat-info">
+                  <strong>{String(number)}</strong>
+                  <span>{String(label)}</span>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <span className="wl-trust-divider" aria-hidden="true" />
+        <div className="wl-industries-group">
+          <p className="wl-strip-heading">
+            Trusted by businesses
+            <br />
+            across all sectors
+          </p>
+          <div className="wl-strip-industries">
+            {sectors.map(([label, SectorIcon]) => (
+              <a className="wl-strip-ind" href="#industries" key={label}>
+                <SectorIcon size={25} strokeWidth={1.8} />
+                <span>{label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }
 function HiringRequirementForm() {
   const [user, setUser] = useState<boolean | null>(null),
