@@ -30,3 +30,8 @@
 .footer-legal {display:flex;gap:20px}
 .footer-legal a {display:inline;margin-bottom:0}
 @media(max-width:650px){.footer-dark .footerbottom{flex-direction:column;gap:15px;align-items:flex-start}}
+button.joblink{width:100%;border-top:1px solid #e5e9e2;margin-top:24px;padding:18px 0 0;background:none;border-left:none;border-right:none;border-bottom:none;font-size:14px;font-weight:600;color:#07529b;text-align:left;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:color .15s}
+button.joblink:hover{color:#053a6e}
+.cards .card.active-card{border-color:#07529b;box-shadow:0 8px 24px rgba(7,82,155,.12);background:#f8fbff}
+
+
