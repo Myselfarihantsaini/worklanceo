@@ -3,7 +3,7 @@ import {createRoot,hydrateRoot} from 'react-dom/client';
 import Site from '../app/site';
 import '../app/globals.css';
 const base='';
-const origin='https://kaamsetu-workforce.diprish.chatgpt.site';
+const origin='https://worklanceo.com';
 const section=location.pathname.replace(/^\/?/, '').replace(/\/$/, '')||'home';
 const pages=['home','solutions','resources','tools','about','privacy','terms','hire','workspace'];
 if(['admin','jobs'].includes(section))location.replace(origin+'/'+(section==='jobs'?'hire':section)+location.search+location.hash);

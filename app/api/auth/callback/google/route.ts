@@ -49,10 +49,10 @@ export async function GET(request: Request) {
     }),
   });
 
-  const tokens = await tokenResponse.json();
+  const tokens = await tokenResponse.json() as { id_token?: string };
 
   if (!tokens.id_token) {
-    console.error('Failed to exchange token:', tokens);
+    console.error('Google token exchange failed:', tokenResponse.status);
     return NextResponse.redirect(new URL('/', request.url));
   }
 

@@ -4,18 +4,18 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://worklanceo.com"),
   title: {
-    default: "WorkLanceo | Recruitment & Workforce Solutions",
+    default: "WorkLanceo | Recruitment & Workforce Hiring Across Every Sector",
     template: "%s | WorkLanceo",
   },
   description:
-    "Build your team with WorkLanceo. Recruitment, bulk hiring, staffing and workforce solutions for India.",
+    "WorkLanceo helps businesses hire pre-screened candidates across industries including corporate, retail, manufacturing, logistics, hospitality, healthcare, BPO, technology and more.",
   alternates: {
     canonical: "https://worklanceo.com",
   },
   openGraph: {
-    title: "WorkLanceo | Recruitment & Workforce Solutions",
+    title: "WorkLanceo | Recruitment & Workforce Hiring Across Every Sector",
     description:
-      "From your first hire to your next hundred. Recruitment, bulk hiring, staffing and workforce solutions for India.",
+      "One partner. Every workforce need. Recruitment and hiring across all sectors.",
     url: "https://worklanceo.com",
     siteName: "WorkLanceo",
     locale: "en_IN",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "WorkLanceo | Recruitment & Workforce Solutions",
+    title: "WorkLanceo | Recruitment & Workforce Hiring Across Every Sector",
     description:
-      "From your first hire to your next hundred. Recruitment, bulk hiring, staffing and workforce solutions for India.",
+      "One partner. Every workforce need. Recruitment and hiring across all sectors.",
     images: ["/worklanceo-logo.png"],
   },
   icons: {

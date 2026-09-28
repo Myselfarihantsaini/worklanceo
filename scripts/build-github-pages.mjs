@@ -26,8 +26,8 @@ try{
  }
  for(const page of ['admin','jobs']){
   const target=page==='jobs'?'hire':page;
-  const url='https://kaamsetu-workforce.diprish.chatgpt.site/'+target;
-  const body=`<main><h1>WorkLanceo secure service</h1><p>Continue to our secure service to sign in. It opens on kaamsetu-workforce.diprish.chatgpt.site.</p><a href="${url}">Continue securely</a><p><a href="/">Back to WorkLanceo</a></p></main>`;
+  const url='https://worklanceo.com/'+target;
+  const body=`<main><h1>WorkLanceo secure service</h1><p>Continue to our secure service to sign in. It opens on worklanceo.com.</p><a href="${url}">Continue securely</a><p><a href="/">Back to WorkLanceo</a></p></main>`;
   await mkdir(`work/pages-build/${page}`,{recursive:true});await writeFile(`work/pages-build/${page}/index.html`,template.replace('</head>','<meta name="robots" content="noindex, nofollow"/></head>').replace('<div id="root"></div>',`<div id="root">${body}</div>`));
  }
  await writeFile('work/pages-build/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+Object.keys(pages).filter(p=>p!=='workspace').map(p=>'<url><loc>https://worklanceo.com/'+(p==='home'?'':p+'/')+'</loc></url>').join('')+'</urlset>');
