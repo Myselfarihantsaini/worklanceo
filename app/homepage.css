@@ -303,11 +303,11 @@
 .wl-section {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 85px 5%;
-  scroll-margin-top: 110px;
+  padding: 50px 5%;
+  scroll-margin-top: 100px;
 }
 .wl-section h2 {
-  font-size: clamp(29px, 3vw, 45px);
+  font-size: clamp(28px, 2.8vw, 42px);
   line-height: 1.18;
   letter-spacing: -1.3px;
   color: #062b5c;
@@ -316,15 +316,15 @@
 .wl-section > p:not(.wl-eyebrow),
 .wl-section > div > p:not(.wl-eyebrow) {
   color: #657287;
-  font-size: 16px;
-  line-height: 1.7;
-  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.65;
+  margin-top: 14px;
   max-width: 680px;
 }
 .wl-industries {
   text-align: center;
-  padding-top: 62px;
-  padding-bottom: 60px;
+  padding-top: 35px;
+  padding-bottom: 45px;
 }
 .wl-industries > p {
   margin-left: auto !important;
