@@ -112,11 +112,13 @@ function CTA({
 function Brand() {
   return (
     <a className="wl-brand" href="/" aria-label="WorkLanceo home">
-      <img
-        src="/worklanceo-logo.png"
-        alt="WorkLanceo - People • Possibilities • Progress"
-        className="wl-brand-img"
-      />
+      <span className="wl-brand-symbol" aria-hidden="true">
+        <img src="/worklanceo-logo.png" alt="" />
+      </span>
+      <span className="wl-wordmark">
+        <strong>Work<span>Lanceo</span></strong>
+        <small>PEOPLE · POSSIBILITIES · PROGRESS</small>
+      </span>
     </a>
   );
 }
@@ -176,15 +178,66 @@ export function Navbar() {
 
 function HeroWorkforceCollage() {
   return (
-    <div className="wl-visual">
-      <img
-        className="wl-collage"
-        src="/hero-collage.png"
-        alt="Real People. Real Opportunities. WorkLanceo workforce"
-        width="1168"
-        height="528"
-        fetchPriority="high"
-      />
+    <div className="wl-collage-wrapper">
+      <div className="wl-montage-container">
+        {/* Real People. Real Opportunities. Handwritten script badge */}
+        <div className="wl-handwritten-badge">
+          <span>Real People.</span>
+          <span>Real Opportunities.</span>
+        </div>
+
+        {/* Worker Cards Grid */}
+        <div className="wl-worker-cards">
+          <div className="wl-worker-card card-engineer">
+            <img src="/workers/engineer.jpg" alt="Construction & Engineering" />
+          </div>
+          <div className="wl-worker-card card-leader">
+            <img src="/workers/corporate-leader.jpg" alt="Corporate Management" />
+          </div>
+          <div className="wl-worker-card card-chef">
+            <img src="/workers/chef.jpg" alt="Hospitality & Culinary" />
+          </div>
+          <div className="wl-worker-card card-doctor">
+            <img src="/workers/doctor.jpg" alt="Healthcare & Medical" />
+          </div>
+          <div className="wl-worker-card card-delivery">
+            <img src="/workers/delivery.jpg" alt="Logistics & Delivery" />
+          </div>
+          <div className="wl-worker-card card-support">
+            <img src="/workers/support.jpg" alt="BPO & Customer Support" />
+          </div>
+        </div>
+
+        {/* Floating "More than a placement" Badge */}
+        <div className="wl-placement-floating">
+          <div className="wl-placement-icon-wrap">
+            <Users size={20} />
+          </div>
+          <div className="wl-placement-text">
+            <strong>More than a placement.</strong>
+            <p>A long-term partner for your workforce needs.</p>
+          </div>
+        </div>
+
+        {/* Candidate Hiring Pipeline Checklist Cards */}
+        <div className="wl-pipeline-cards">
+          <div className="wl-pipeline-card">
+            <img src="/workers/candidate1.jpg" alt="Candidate" className="wl-pipeline-avatar" />
+            <span className="wl-pipeline-title">Shortlisted</span>
+            <span className="wl-pipeline-check"><Check size={13} /></span>
+          </div>
+          <div className="wl-pipeline-card">
+            <img src="/workers/candidate2.jpg" alt="Candidate" className="wl-pipeline-avatar" />
+            <span className="wl-pipeline-title">Interviewed</span>
+            <span className="wl-pipeline-check"><Check size={13} /></span>
+          </div>
+          <div className="wl-pipeline-card">
+            <img src="/workers/candidate3.jpg" alt="Candidate" className="wl-pipeline-avatar" />
+            <span className="wl-pipeline-title">Joined</span>
+            <span className="wl-pipeline-check"><Check size={13} /></span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
