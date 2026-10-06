@@ -144,6 +144,7 @@ export function Navbar() {
       >
         {[
           ["For Employers", "/hire"],
+          ["For Candidates", "/candidates"],
           ["Our Solutions", "/solutions"],
           ["Resources", "/resources"],
           ["About Us", "/about"],
@@ -246,7 +247,6 @@ function Hero() {
     </section>
   );
 }
-
 
 function HiringRequirementForm() {
   const [user, setUser] = useState<boolean | null>(null),
@@ -645,7 +645,7 @@ export default function Homepage() {
           </p>
         </div>
         <CTA secondary href="/candidates">
-          Join Candidate Network
+          Submit Your Resume
         </CTA>
       </section>
       <section className="wl-section wl-faq" id="faq">
