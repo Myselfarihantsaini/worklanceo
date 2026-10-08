@@ -6,6 +6,7 @@ declare namespace Cloudflare {
     SESSION_SECRET?: string;
     RESEND_API_KEY?: string;
     ADMIN_EMAIL?: string;
+    ADMIN_EMAILS?: string;
     BUCKET?: R2Bucket;
   }
 }
