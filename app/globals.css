@@ -1688,7 +1688,7 @@ form h4 {
 }
 .adminfilters {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 14px;
   margin: 26px 0;
 }

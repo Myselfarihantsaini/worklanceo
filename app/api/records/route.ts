@@ -3,6 +3,7 @@ import { getChatGPTUser } from "../../chatgpt-auth";
 import { database } from "../../../db/raw";
 import { z } from "zod";
 import { sendEmail } from "../../email";
+import { candidateCategorySet } from "../../candidate-categories";
 
 const schema = z.object({
   kind: z.enum(["requirement", "application", "checklist"]),
@@ -201,7 +202,8 @@ export async function POST(request: Request) {
     }
     if (
       kind === "application" &&
-      (!required(["preferredRole", "skills"]) ||
+      (!required(["preferredRole", "jobCategory", "skills"]) ||
+        !candidateCategorySet.has(String(data.jobCategory)) ||
         typeof data.resumeKey !== "string" ||
         (data.expectedSalary !== undefined &&
           data.expectedSalary !== "" &&
@@ -210,7 +212,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           error:
-            "Add your preferred role, skills and PDF résumé, then check the expected salary.",
+            "Add your preferred role, job category, skills and PDF résumé, then check the expected salary.",
         },
         { status: 400 },
       );

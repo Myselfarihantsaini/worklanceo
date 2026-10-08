@@ -57,6 +57,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { jobs, services, onboarding } from "./data";
+import { candidateCategories } from "./candidate-categories";
 const icons: any = {
   briefcase: BriefcaseBusiness,
   users: Users,
@@ -371,6 +372,24 @@ export default function Site({
                 maxLength={160}
                 placeholder="e.g. Warehouse associate"
               />
+              <label className="field">
+                <span>Job category *</span>
+                <select
+                  className="choice"
+                  name="jobCategory"
+                  required
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select a category
+                  </option>
+                  {candidateCategories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </label>
               <Field
                 label="Total experience"
                 name="experience"
