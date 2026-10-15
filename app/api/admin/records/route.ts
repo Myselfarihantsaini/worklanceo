@@ -38,7 +38,12 @@ export async function GET(request: Request) {
       where.push("status = ?");
       bindings.push(status);
     }
-    if (category && candidateCategorySet.has(category)) {
+    if (category === "Uncategorised") {
+      where.push("kind = 'application'");
+      where.push(
+        "(json_extract(data,'$.jobCategory') IS NULL OR json_extract(data,'$.jobCategory') = '')",
+      );
+    } else if (category && candidateCategorySet.has(category)) {
       where.push("kind = 'application'");
       where.push("json_extract(data,'$.jobCategory') = ?");
       bindings.push(category);

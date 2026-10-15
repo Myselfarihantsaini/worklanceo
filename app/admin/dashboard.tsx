@@ -52,6 +52,11 @@ type Entry = {
   reviewedAt: number | null;
 };
 const statuses = ["New", "Contacted", "In progress", "Closed"];
+const allCategories = [
+  "All job categories",
+  "Uncategorised",
+  ...candidateCategories,
+];
 const labels: Record<string, string> = {
   name: "Contact name",
   company: "Company",
@@ -228,7 +233,7 @@ export default function Dashboard({ name }: { name: string }) {
       r.data.email,
       r.data.phone,
       r.data.city,
-      r.data.jobCategory,
+      r.data.jobCategory || "Uncategorised",
       r.data.headcount,
       r.data.salaryMin,
       r.data.salaryMax,
@@ -314,6 +319,22 @@ export default function Dashboard({ name }: { name: string }) {
               </button>
               <button
                 className="button white small"
+                disabled={loading}
+                onClick={() => {
+                  setQuery("");
+                  setSearch("");
+                  setKind("Candidate profiles");
+                  setCategory("All job categories");
+                  setStatus("All statuses");
+                  setDue(false);
+                  setPage(1);
+                }}
+              >
+                <Users size={15} />
+                Show candidate CVs
+              </button>
+              <button
+                className="button white small"
                 disabled={!rows.length || loading}
                 onClick={exportPage}
               >
@@ -372,7 +393,7 @@ export default function Dashboard({ name }: { name: string }) {
                 if (v !== "All job categories") setKind("Candidate profiles");
                 setPage(1);
               }}
-              options={["All job categories", ...candidateCategories]}
+              options={allCategories}
             />
             <label className="admincheck">
               <Checkbox
@@ -442,6 +463,7 @@ export default function Dashboard({ name }: { name: string }) {
                   <TableHead>Enquiry</TableHead>
                   <TableHead>Contact</TableHead>
                   <TableHead>Location / hires</TableHead>
+                  <TableHead>CV</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Follow-up</TableHead>
                   <TableHead>Received</TableHead>
@@ -458,7 +480,7 @@ export default function Dashboard({ name }: { name: string }) {
                       <small>
                         {r.kind === "requirement"
                           ? "Hiring enquiry"
-                          : r.data.jobCategory || "Candidate profile"}
+                          : r.data.jobCategory || "Uncategorised candidate"}
                         {r.data.sample ? " · Sample-role interest" : ""}
                       </small>
                     </TableCell>
@@ -473,6 +495,20 @@ export default function Dashboard({ name }: { name: string }) {
                           ? `${r.data.headcount} hires`
                           : "Candidate"}
                       </small>
+                    </TableCell>
+                    <TableCell>
+                      {r.kind === "application" && r.data.resumeKey ? (
+                        <a
+                          className="textlink"
+                          href={
+                            "/api/admin/resume?id=" + encodeURIComponent(r.id)
+                          }
+                        >
+                          <Download size={15} /> Download CV
+                        </a>
+                      ) : (
+                        <span className="muted">—</span>
+                      )}
                     </TableCell>
                     <TableCell>
                       <span
