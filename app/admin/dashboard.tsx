@@ -102,6 +102,14 @@ function date(v: number) {
     year: "numeric",
   });
 }
+function time(v: number) {
+  return new Date(v).toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
 function csvCell(v: unknown) {
   let s = String(v ?? "");
   if (/^[\s]*[=+@-]/.test(s)) s = "'" + s;
@@ -119,6 +127,8 @@ export default function Dashboard({ name }: { name: string }) {
     [status, setStatus] = useState("All statuses"),
     [due, setDue] = useState(false),
     [loading, setLoading] = useState(true),
+    [refreshing, setRefreshing] = useState(false),
+    [lastUpdated, setLastUpdated] = useState<number | null>(null),
     [error, setError] = useState(""),
     [selected, setSelected] = useState<Entry | null>(null),
     [draftStatus, setDraftStatus] = useState("New"),
@@ -128,8 +138,9 @@ export default function Dashboard({ name }: { name: string }) {
     [saveError, setSaveError] = useState(""),
     [message, setMessage] = useState("");
   const load = useCallback(
-    async (signal?: AbortSignal) => {
-      setLoading(true);
+    async (signal?: AbortSignal, background = false) => {
+      if (background) setRefreshing(true);
+      else setLoading(true);
       setError("");
       try {
         const p = new URLSearchParams({
@@ -145,19 +156,24 @@ export default function Dashboard({ name }: { name: string }) {
           category: category === "All job categories" ? "" : category,
           due: String(due),
         });
-        const r = await fetch("/api/admin/records?" + p, { signal });
+        const r = await fetch("/api/admin/records?" + p, {
+          signal,
+          cache: "no-store",
+        });
         const d: any = await r.json();
         if (!r.ok) throw Error(d.error);
         setRows(d.records);
         setTotal(d.total);
         setSummary(d.summary ?? {});
+        setLastUpdated(Date.now());
       } catch (e: any) {
         if (e.name !== "AbortError") {
           setError(e.message);
-          setRows([]);
+          if (!background) setRows([]);
         }
       } finally {
-        if (!signal?.aborted) setLoading(false);
+        if (background) setRefreshing(false);
+        else if (!signal?.aborted) setLoading(false);
       }
     },
     [page, search, kind, category, status, due],
@@ -166,6 +182,31 @@ export default function Dashboard({ name }: { name: string }) {
     const c = new AbortController();
     load(c.signal);
     return () => c.abort();
+  }, [load]);
+  useEffect(() => {
+    let request: AbortController | null = null;
+    const refresh = async () => {
+      if (document.visibilityState !== "visible" || request) return;
+      request = new AbortController();
+      const current = request;
+      try {
+        await load(current.signal, true);
+      } finally {
+        if (request === current) request = null;
+      }
+    };
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") void refresh();
+    };
+    const timer = window.setInterval(() => void refresh(), 15_000);
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      request?.abort();
+    };
   }, [load]);
   function open(r: Entry) {
     setSelected(r);
@@ -307,14 +348,24 @@ export default function Dashboard({ name }: { name: string }) {
         </div>
         <section className="admininbox">
           <div className="resultsline">
-            <h2>Submission inbox</h2>
+            <div className="inboxtitle">
+              <h2>Submission inbox</h2>
+              <span className="autorefresh" role="status" aria-live="polite">
+                <span className={refreshing ? "pulse active" : "pulse"} />
+                {refreshing
+                  ? "Checking for new CVs…"
+                  : lastUpdated
+                    ? `Auto-updated at ${time(lastUpdated)}`
+                    : "Automatic updates on"}
+              </span>
+            </div>
             <div className="actions">
               <button
                 className="button white small"
-                disabled={loading}
+                disabled={loading || refreshing}
                 onClick={() => load()}
               >
-                <RefreshCw size={15} />
+                <RefreshCw size={15} className={refreshing ? "spin" : ""} />
                 Refresh
               </button>
               <button

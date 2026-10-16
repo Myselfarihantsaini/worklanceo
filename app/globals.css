@@ -1683,6 +1683,43 @@ form h4 {
   font-size: 23px;
   letter-spacing: -0.5px;
 }
+.inboxtitle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.autorefresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #637869;
+  font-size: 12px;
+}
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #20a45b;
+  box-shadow: 0 0 0 3px rgba(32, 164, 91, 0.12);
+}
+.pulse.active {
+  animation: admin-pulse 1s ease-in-out infinite;
+}
+.spin {
+  animation: admin-spin 0.8s linear infinite;
+}
+@keyframes admin-pulse {
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+@keyframes admin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 .admininbox .actions {
   margin: 0;
 }
