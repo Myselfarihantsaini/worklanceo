@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Mail,
   Phone,
+  Trash2,
 } from "lucide-react";
 import {
   Select,
@@ -136,6 +137,9 @@ export default function Dashboard({ name }: { name: string }) {
     [followUp, setFollowUp] = useState(""),
     [saving, setSaving] = useState(false),
     [saveError, setSaveError] = useState(""),
+    [confirmDelete, setConfirmDelete] = useState(false),
+    [deleting, setDeleting] = useState(false),
+    [deleteError, setDeleteError] = useState(""),
     [message, setMessage] = useState("");
   const load = useCallback(
     async (signal?: AbortSignal, background = false) => {
@@ -214,6 +218,8 @@ export default function Dashboard({ name }: { name: string }) {
     setNotes(r.notes);
     setFollowUp(r.followUp);
     setSaveError("");
+    setConfirmDelete(false);
+    setDeleteError("");
     setMessage("");
   }
   async function save() {
@@ -241,6 +247,31 @@ export default function Dashboard({ name }: { name: string }) {
       setSaveError(e.message);
     } finally {
       setSaving(false);
+    }
+  }
+  async function deleteCandidate() {
+    if (!selected || selected.kind !== "application") return;
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      const r = await fetch("/api/admin/records", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: selected.id,
+          version: selected.version,
+        }),
+      });
+      const d: any = await r.json();
+      if (!r.ok) throw Error(d.error);
+      setSelected(null);
+      setConfirmDelete(false);
+      setMessage("Candidate profile and CV deleted permanently.");
+      await load();
+    } catch (e: any) {
+      setDeleteError(e.message);
+    } finally {
+      setDeleting(false);
     }
   }
   function exportPage() {
@@ -623,7 +654,7 @@ export default function Dashboard({ name }: { name: string }) {
       <Sheet
         open={!!selected}
         onOpenChange={(v) => {
-          if (!saving && !v) setSelected(null);
+          if (!saving && !deleting && !v) setSelected(null);
         }}
       >
         <SheetContent className="adminsheet">
@@ -737,12 +768,67 @@ export default function Dashboard({ name }: { name: string }) {
                 )}
                 <button
                   className="button dark"
-                  disabled={saving}
+                  disabled={saving || deleting}
                   onClick={save}
                 >
                   {saving ? "Saving…" : "Save changes"}
                 </button>
               </div>
+              {selected.kind === "application" && (
+                <div className="deletezone">
+                  <h3>Delete candidate data</h3>
+                  {!confirmDelete ? (
+                    <>
+                      <p className="smalltext">
+                        Permanently remove this candidate profile and its
+                        uploaded CV from WorkLanceo.
+                      </p>
+                      <button
+                        className="button deletebutton"
+                        disabled={saving || deleting}
+                        onClick={() => {
+                          setConfirmDelete(true);
+                          setDeleteError("");
+                        }}
+                      >
+                        <Trash2 size={16} /> Delete candidate and CV
+                      </button>
+                    </>
+                  ) : (
+                    <div className="deleteconfirm">
+                      <p>
+                        This cannot be undone. The candidate profile and CV
+                        file will be permanently deleted.
+                      </p>
+                      {deleteError && (
+                        <p className="error" role="alert">
+                          {deleteError}
+                        </p>
+                      )}
+                      <div>
+                        <button
+                          className="button white small"
+                          disabled={deleting}
+                          onClick={() => {
+                            setConfirmDelete(false);
+                            setDeleteError("");
+                          }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="button deletebutton small"
+                          disabled={deleting}
+                          onClick={deleteCandidate}
+                        >
+                          <Trash2 size={16} />
+                          {deleting ? "Deleting…" : "Yes, delete permanently"}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </SheetContent>

@@ -1856,6 +1856,43 @@ form h4 {
 .adminreview .button {
   margin-top: 20px;
 }
+.deletezone {
+  border-top: 1px solid #ead8d4;
+  margin-top: 28px;
+  padding-top: 24px;
+}
+.deletezone h3 {
+  color: #842f2a;
+  margin-bottom: 8px;
+}
+.button.deletebutton {
+  background: #fff;
+  border: 1px solid #c95850;
+  color: #9d352d;
+  margin-top: 16px;
+}
+.button.deletebutton:hover {
+  background: #fff0ed;
+}
+.deleteconfirm {
+  background: #fff5f2;
+  border: 1px solid #edcbc5;
+  border-radius: 8px;
+  color: #792d28;
+  padding: 16px;
+}
+.deleteconfirm > div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.deleteconfirm .button {
+  margin-top: 0;
+}
+.deleteconfirm .error {
+  margin-bottom: 0;
+}
 @media (max-width: 800px) {
   .adminstats {
     grid-template-columns: 1fr 1fr;

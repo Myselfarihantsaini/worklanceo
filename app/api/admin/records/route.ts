@@ -108,6 +108,10 @@ const update = z.object({
           new Date(s).toISOString().slice(0, 10) === s),
     ),
 });
+const remove = z.object({
+  id: z.string().uuid(),
+  version: z.number().int().min(0),
+});
 export async function PATCH(request: Request) {
   if (!(await adminIdentity()))
     return Response.json(
@@ -160,6 +164,72 @@ export async function PATCH(request: Request) {
     console.error("Admin update failed", e);
     return Response.json(
       { error: "Changes were not saved. Please try again." },
+      { status: 503, headers },
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  if (!(await adminIdentity()))
+    return Response.json(
+      { error: "Admin access required." },
+      { status: 403, headers },
+    );
+  if (request.headers.get("origin") !== new URL(request.url).origin)
+    return Response.json(
+      { error: "Invalid origin." },
+      { status: 403, headers },
+    );
+
+  let value;
+  try {
+    const raw = await request.text();
+    if (raw.length > 1000)
+      return Response.json(
+        { error: "Invalid delete request." },
+        { status: 413, headers },
+      );
+    value = remove.safeParse(JSON.parse(raw));
+  } catch {
+    return Response.json(
+      { error: "Invalid delete request." },
+      { status: 400, headers },
+    );
+  }
+  if (!value.success)
+    return Response.json(
+      { error: "Invalid candidate profile." },
+      { status: 400, headers },
+    );
+
+  const { id, version } = value.data;
+  try {
+    const db = database();
+    const results = await db.batch([
+      db
+        .prepare(
+          `DELETE FROM resume_chunks WHERE resume_key IN (SELECT json_extract(data,'$.resumeKey') FROM records WHERE id=? AND kind='application' AND review_version=? AND ${visible})`,
+        )
+        .bind(id, version),
+      db
+        .prepare(
+          `DELETE FROM records WHERE id=? AND kind='application' AND review_version=? AND ${visible}`,
+        )
+        .bind(id, version),
+    ]);
+    if (!results[1]?.meta.changes)
+      return Response.json(
+        {
+          error:
+            "This candidate changed or was already deleted. Refresh the list and try again.",
+        },
+        { status: 409, headers },
+      );
+    return Response.json({ ok: true }, { headers });
+  } catch (error) {
+    console.error("Admin candidate delete failed", error);
+    return Response.json(
+      { error: "The candidate and CV could not be deleted. Please try again." },
       { status: 503, headers },
     );
   }
