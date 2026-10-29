@@ -153,14 +153,14 @@ export function Navbar() {
             {text}
           </a>
         ))}
-        <a className="wl-mobile-workspace" href="/workspace">
-          My Workspace
+        <a className="wl-mobile-workspace" href="/admin">
+          Admin Dashboard
         </a>
       </nav>
       <div className="wl-nav-actions">
-        <a className="wl-workspace" href="/workspace">
+        <a className="wl-workspace" href="/admin">
           <UserRound size={18} />
-          My Workspace
+          Admin Dashboard
         </a>
         <a className="wl-button wl-btn-start" href="/hire">
           Start Hiring <ArrowRight size={17} />
