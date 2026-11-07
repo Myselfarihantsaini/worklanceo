@@ -55,10 +55,43 @@ async function handleNotification(
   name: string,
   kind: string,
   title: string,
+  data: Record<string, unknown>,
 ) {
-  const adminEmail = env.ADMIN_EMAIL;
+  const adminEmail = "myselfarihantsaini@gmail.com";
   const apiKey = env.RESEND_API_KEY as string;
   if (!apiKey || !adminEmail) return;
+
+  const escapeHtml = (value: unknown) =>
+    String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  const details = [
+    ["Company", data.company],
+    ["Contact", name],
+    ["Phone / WhatsApp", data.phone],
+    ["Work email", email],
+    ["City", data.city],
+    ["Job role", data.role],
+    ["Number of openings", data.headcount],
+    [
+      "Monthly salary range",
+      data.salaryMin && data.salaryMax
+        ? `₹${data.salaryMin} – ₹${data.salaryMax}`
+        : "",
+    ],
+    ["Hiring deadline", data.joiningDate],
+    ["Job description", data.details],
+    ["Additional requirements", data.additionalRequirements],
+  ]
+    .filter(([, value]) => String(value ?? "").trim())
+    .map(
+      ([label, value]) =>
+        `<tr><th style="text-align:left;padding:6px 12px 6px 0;vertical-align:top">${escapeHtml(label)}</th><td style="padding:6px 0">${escapeHtml(value)}</td></tr>`,
+    )
+    .join("");
 
   // 1. Email to User
   await sendEmail(
@@ -66,8 +99,8 @@ async function handleNotification(
     email,
     `Confirmation: Your ${kind} was received`,
     `
-    <h3>Hello ${name},</h3>
-    <p>We have successfully received your submission for: <b>${title}</b>.</p>
+    <h3>Hello ${escapeHtml(name)},</h3>
+    <p>We have successfully received your submission for: <b>${escapeHtml(title)}</b>.</p>
     <p>Our team at Worklanceo will review it and get back to you shortly.</p>
     <br/>
     <p>Best regards,<br/>The Worklanceo Team</p>
@@ -80,9 +113,8 @@ async function handleNotification(
     adminEmail,
     `New ${kind} submitted: ${title}`,
     `
-    <h3>New Submission Alert</h3>
-    <p>A new ${kind} was just submitted by <b>${name}</b> (${email}).</p>
-    <p>Title: ${title}</p>
+    <h3>New hiring requirement</h3>
+    <table style="border-collapse:collapse">${details}</table>
     <p>Log into the <a href="https://worklanceo.com/admin">Admin Dashboard</a> to view the full details.</p>
   `,
   );
@@ -90,11 +122,6 @@ async function handleNotification(
 
 export async function POST(request: Request) {
   const user = await getChatGPTUser();
-  if (!user)
-    return Response.json(
-      { error: "Sign in to save your details." },
-      { status: 401 },
-    );
   if (request.headers.get("origin") !== new URL(request.url).origin)
     return Response.json({ error: "Invalid request origin." }, { status: 403 });
   try {
@@ -117,6 +144,11 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     const { kind, title, data } = parsed.data;
+    if (!user && kind !== "requirement")
+      return Response.json(
+        { error: "Sign in to save your details." },
+        { status: 401 },
+      );
     for (const key of Object.keys(data)) {
       if (typeof data[key] === "string")
         data[key] = (data[key] as string).trim();
@@ -148,9 +180,7 @@ export async function POST(request: Request) {
         "company",
         "email",
         "role",
-        "service",
         "joiningDate",
-        "shifts",
       ])
     )
       return Response.json(
@@ -226,7 +256,8 @@ export async function POST(request: Request) {
       );
     if (
       data.resumeKey &&
-      (typeof data.resumeKey !== "string" ||
+      (!user ||
+        typeof data.resumeKey !== "string" ||
         !data.resumeKey.startsWith(user.userId + "/"))
     )
       return Response.json(
@@ -239,14 +270,20 @@ export async function POST(request: Request) {
       delete data.sharedWithTeam;
       delete data.submittedAt;
     }
+    if (!user && data.sharedWithTeam !== true)
+      return Response.json(
+        { error: "Public hiring requirements must be submitted to the team." },
+        { status: 400 },
+      );
     const id = crypto.randomUUID();
+    const owner = user?.userId ?? `public:${id}`;
     await database()
       .prepare(
         "INSERT INTO records (id,owner,kind,title,status,data,created) VALUES (?,?,?,?,?,?,?)",
       )
       .bind(
         id,
-        user.userId,
+        owner,
         kind,
         title,
         data.sharedWithTeam === true ? "New" : "Saved",
@@ -257,13 +294,13 @@ export async function POST(request: Request) {
 
     // SEND NOTIFICATION
     if (data.sharedWithTeam === true && data.email && data.name) {
-      // Fire and forget so we don't block response
-      handleNotification(
+      await handleNotification(
         data.email as string,
         data.name as string,
         kind,
         title,
-      ).catch(console.error);
+        data,
+      );
     }
 
     return Response.json({ id }, { status: 201 });
@@ -355,8 +392,12 @@ export async function PATCH(request: Request) {
     if (row) {
       const data = JSON.parse(row.data);
       if (data.email && data.name) {
-        handleNotification(data.email, data.name, row.kind, row.title).catch(
-          console.error,
+        await handleNotification(
+          data.email,
+          data.name,
+          row.kind,
+          row.title,
+          data,
         );
       }
     }

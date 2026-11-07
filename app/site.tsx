@@ -29,6 +29,7 @@ import {
   ChevronRight,
   Plus,
   LogIn,
+  MessageCircle,
 } from "lucide-react";
 import {
   Dialog,
@@ -236,7 +237,9 @@ export default function Site({
       setNotice(
         kind === "checklist"
           ? "Checklist saved privately."
-          : "Submitted to the recruitment team. You can track your submission in My workspace.",
+          : kind === "requirement"
+            ? "Submitted to the recruitment team. We will contact you shortly."
+            : "Submitted to the recruitment team. You can track your submission in My workspace.",
       );
       return true;
     } catch (e: any) {
@@ -324,7 +327,7 @@ export default function Site({
       </div>
     );
   }
-  function feedback() {
+  function feedback(showWorkspace = true) {
     return (
       <>
         {error && (
@@ -335,7 +338,8 @@ export default function Site({
         {notice && (
           <p className="success" role="status">
             <CheckCircle2 size={18} />
-            {notice} <a href={link("/workspace")}>View workspace →</a>
+            {notice}{" "}
+            {showWorkspace && <a href={link("/workspace")}>View workspace →</a>}
           </p>
         )}
       </>
@@ -504,23 +508,16 @@ export default function Site({
   const [selectedService, setSelectedService] = useState(
     "Permanent recruitment",
   );
-  function RequirementForm({
-    defaultService = "",
-  }: {
-    defaultService?: string;
-  }) {
+  function RequirementForm() {
     return (
       <div className="hirelayout" id="solution-hire-form">
         <div className="formpanel">
           <h3>Your hiring requirement</h3>
           <p className="smalltext">
             Submit your requirements directly to our recruitment team. All
-            fields marked * are required.
+            fields marked * are required. No sign-in is needed.
           </p>
-          {!user ? (
-            signIn()
-          ) : (
-            <form onSubmit={(e) => submit(e, "requirement")}>
+          <form onSubmit={(e) => submit(e, "requirement")}>
               <h4>01 · Company & contact</h4>
               <div className="formgrid">
                 <Field
@@ -536,30 +533,30 @@ export default function Site({
                   maxLength={100}
                 />
                 <Field
-                  label="Work email *"
-                  name="email"
-                  type="email"
-                  required
-                />
-                <Field
-                  label="Mobile number *"
+                  label="Phone / WhatsApp *"
                   name="phone"
                   pattern="[6-9][0-9]{9}"
                   inputMode="tel"
                   placeholder="10-digit Indian mobile"
                   required
                 />
+                <Field
+                  label="Work email *"
+                  name="email"
+                  type="email"
+                  required
+                />
               </div>
               <h4>02 · The people you need</h4>
               <div className="formgrid">
                 <Field
-                  label="Role / job title *"
+                  label="Job role *"
                   name="role"
                   required
                   maxLength={160}
                 />
                 <Field
-                  label="Number of hires *"
+                  label="Number of openings *"
                   name="headcount"
                   type="number"
                   min="1"
@@ -567,21 +564,7 @@ export default function Site({
                   required
                   defaultValue="10"
                 />
-                <Field label="City / work location *" name="city" required />
-                <Field
-                  label="Service required *"
-                  name="service"
-                  list="service-list"
-                  required
-                  defaultValue={defaultService}
-                  key={defaultService}
-                  placeholder="e.g. Bulk hiring"
-                />
-                <datalist id="service-list">
-                  {services.map((s) => (
-                    <option key={s.name}>{s.name}</option>
-                  ))}
-                </datalist>
+                <Field label="City *" name="city" required />
                 <Field
                   label="Monthly salary from (₹) *"
                   name="salaryMin"
@@ -597,28 +580,29 @@ export default function Site({
                   required
                 />
                 <Field
-                  label="Target joining date *"
+                  label="Hiring deadline *"
                   name="joiningDate"
                   type="date"
                   min={new Date().toISOString().slice(0, 10)}
                   required
                 />
-                <Field
-                  label="Shifts / working days *"
-                  name="shifts"
-                  required
-                  placeholder="e.g. Day shift, 6 days"
-                />
-                <Field label="Experience / education" name="qualifications" />
-                <Field label="Languages / skills" name="skills" />
               </div>
               <label className="field">
-                <span>Responsibilities, benefits & special requirements</span>
+                <span>Job description (optional)</span>
                 <textarea
                   name="details"
                   rows={4}
                   maxLength={4000}
-                  placeholder="Daily duties, transport, meals, incentives, physical requirements, interview process and work-site details…"
+                  placeholder="Daily duties, experience, skills, shift and benefits…"
+                />
+              </label>
+              <label className="field">
+                <span>Additional requirements (optional)</span>
+                <textarea
+                  name="additionalRequirements"
+                  rows={3}
+                  maxLength={4000}
+                  placeholder="Interview process, transport, meals, incentives or work-site details…"
                 />
               </label>
               <label className="consent">
@@ -626,13 +610,12 @@ export default function Site({
                 and my contact details with the recruitment team under the{" "}
                 <a href={link("/privacy")}>privacy notice</a>.
               </label>
-              {feedback()}
+              {feedback(false)}
               <button className="button dark" disabled={loading}>
                 {loading ? "Saving…" : "Submit hiring requirement"}{" "}
                 <ArrowRight size={17} />
               </button>
             </form>
-          )}
         </div>
         <aside>
           <div className="sidebox">
@@ -754,7 +737,7 @@ export default function Site({
               desc="Select a service below and complete your requirement brief in a single step. Our team will review your brief and begin sourcing immediately."
             />
             <ServiceCards />
-            <RequirementForm defaultService={selectedService} />
+            <RequirementForm />
             <section className="section" id="industries">
               <h2>Designed around your industry.</h2>
               <div className="industrygrid">
@@ -818,7 +801,7 @@ export default function Site({
               title="Great hiring starts with a clear brief."
               desc="One role or a hundred. Capture the details that matter so your hiring plan starts on the right footing."
             />
-            <RequirementForm defaultService="Permanent recruitment" />
+            <RequirementForm />
           </div>
         )}
         {page === "tools" && (
@@ -1532,7 +1515,7 @@ export default function Site({
                   profile, the authorised recruitment team. Removing a saved
                   candidate record also deletes its attached résumé. For privacy
                   inquiries, please contact our support team at
-                  myselfarihantsaini@gmail.com.
+                  hello@worklanceo.com.
                 </p>
                 <h2>External links and essential access</h2>
                 <p>
@@ -1580,6 +1563,16 @@ export default function Site({
           </div>
         )}
       </main>
+      <a
+        className="whatsapp-float"
+        href="https://wa.me/919057918251?text=Hi%2C%20I%20have%20a%20hiring%20requirement"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat with WorkLanceo on WhatsApp"
+      >
+        <MessageCircle size={24} aria-hidden="true" />
+        <span>WhatsApp</span>
+      </a>
       <Footer />
       <Dialog
         open={!!job}

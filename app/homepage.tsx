@@ -146,6 +146,7 @@ export function Navbar() {
           ["For Employers", "/hire"],
           ["For Candidates", "/candidates"],
           ["Our Solutions", "/solutions"],
+          ["Payroll & Compliance", "/payroll"],
           ["Resources", "/resources"],
           ["About Us", "/about"],
         ].map(([text, url]) => (
@@ -158,6 +159,16 @@ export function Navbar() {
         </a>
       </nav>
       <div className="wl-nav-actions">
+        <a
+          className="wl-linkedin"
+          href="https://www.linkedin.com/company/worklanceo"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WorkLanceo on LinkedIn"
+        >
+          <span className="wl-linkedin-mark" aria-hidden="true">in</span>
+          <span className="wl-linkedin-text">LinkedIn</span>
+        </a>
         <a className="wl-workspace" href="/admin">
           <UserRound size={18} />
           Admin Dashboard
@@ -249,39 +260,9 @@ function Hero() {
 }
 
 function HiringRequirementForm() {
-  const [user, setUser] = useState<boolean | null>(null),
-    [message, setMessage] = useState(""),
+  const [message, setMessage] = useState(""),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
-  useEffect(() => {
-    fetch("/api/session")
-      .then((r) => r.json() as Promise<{ user?: unknown }>)
-      .then((d) => setUser(!!d.user))
-      .catch(() => setUser(false));
-    const draft = sessionStorage.getItem("wl-hiring-draft");
-    if (draft) {
-      try {
-        const data = JSON.parse(draft);
-        const form = document.getElementById(
-          "wl-hiring-form",
-        ) as HTMLFormElement;
-        Object.entries(data).forEach(([key, value]) => {
-          const input = form.elements.namedItem(key);
-          if (
-            input instanceof HTMLInputElement ||
-            input instanceof HTMLTextAreaElement ||
-            input instanceof HTMLSelectElement
-          ) {
-            if (input instanceof HTMLInputElement && input.type === "checkbox")
-              input.checked = value === "on";
-            else input.value = String(value);
-          }
-        });
-      } catch {
-        sessionStorage.removeItem("wl-hiring-draft");
-      }
-    }
-  }, []);
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
@@ -292,14 +273,6 @@ function HiringRequirementForm() {
       setError("Maximum salary must be at least the minimum salary.");
       return;
     }
-    if (!user) {
-      sessionStorage.setItem("wl-hiring-draft", JSON.stringify(raw));
-      window.location.assign(
-        "/signin-with-google?return_to=" +
-          encodeURIComponent("/#hiring-requirement"),
-      );
-      return;
-    }
     setBusy(true);
     try {
       const response = await fetch("/api/records", {
@@ -308,15 +281,18 @@ function HiringRequirementForm() {
         body: JSON.stringify({
           kind: "requirement",
           title: raw.role,
-          data: { ...raw, consent: true, sharedWithTeam: true },
+          data: {
+            ...raw,
+            consent: raw.consent === "on",
+            sharedWithTeam: true,
+          },
         }),
       });
       const result = (await response.json()) as { error?: string };
       if (!response.ok)
         throw new Error(result.error || "Could not submit. Please try again.");
-      sessionStorage.removeItem("wl-hiring-draft");
       setMessage(
-        "Your hiring requirement has been saved and shared with our recruitment team.",
+        "Your hiring requirement has been sent. Our recruitment team will contact you shortly.",
       );
       form.reset();
     } catch (err) {
@@ -331,17 +307,15 @@ function HiringRequirementForm() {
   }
   const fields = [
     ["Company Name", "company", "text"],
-    ["Your Name", "name", "text"],
+    ["Contact Name", "name", "text"],
+    ["Phone / WhatsApp", "phone", "tel"],
     ["Work Email", "email", "email"],
-    ["Phone Number", "phone", "tel"],
-    ["City / Work Location", "city", "text"],
+    ["City", "city", "text"],
     ["Job Role", "role", "text"],
     ["Number of Openings", "headcount", "number"],
     ["Monthly Salary From (₹)", "salaryMin", "number"],
     ["Monthly Salary To (₹)", "salaryMax", "number"],
-    ["Experience Required", "qualifications", "text"],
     ["Hiring Deadline", "joiningDate", "date"],
-    ["Shifts / Working Days", "shifts", "text"],
   ];
   return (
     <section className="wl-section wl-form-section" id="hiring-requirement">
@@ -363,7 +337,7 @@ function HiringRequirementForm() {
           </li>
           <li>
             <Check />
-            Your requirements, in one workspace.
+            A simple brief, sent directly to our team.
           </li>
           <li>
             <Check />
@@ -378,8 +352,7 @@ function HiringRequirementForm() {
         <h3>Your hiring requirement</h3>
         <p>
           All fields marked * are required.
-          {!user &&
-            " Sign in with Google to securely submit and track your brief."}
+          No sign-in is needed.
         </p>
         <div className="wl-form-grid">
           {fields.map(([label, name, type]) => (
@@ -406,35 +379,13 @@ function HiringRequirementForm() {
               />
             </label>
           ))}
-          <label>
-            Industry *
-            <select name="industry" required defaultValue="">
-              <option value="" disabled>
-                Select industry
-              </option>
-              {industries.map(([name]) => (
-                <option key={name}>{name}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Hiring Solution *
-            <select name="service" required defaultValue="">
-              <option value="" disabled>
-                Select solution
-              </option>
-              {solutions.map(([name]) => (
-                <option key={name}>{name}</option>
-              ))}
-            </select>
-          </label>
         </div>
         <label>
-          Job Description *
-          <textarea name="details" required maxLength={4000} rows={3} />
+          Job Description (optional)
+          <textarea name="details" maxLength={4000} rows={3} />
         </label>
         <label>
-          Additional Requirements
+          Additional Requirements (optional)
           <textarea name="additionalRequirements" maxLength={4000} rows={2} />
         </label>
         <label className="wl-consent">
@@ -451,17 +402,11 @@ function HiringRequirementForm() {
         )}
         {message && (
           <p className="wl-success" role="status">
-            {message} <a href="/workspace">View in My Workspace →</a>
+            {message}
           </p>
         )}
-        <button className="wl-button" disabled={busy || user === null}>
-          {busy
-            ? "Submitting…"
-            : user === null
-              ? "Loading…"
-              : user
-                ? "Submit Hiring Requirement"
-                : "Continue with Google to Submit"}
+        <button className="wl-button" disabled={busy}>
+          {busy ? "Submitting…" : "Submit Hiring Requirement"}
           <ArrowRight size={18} />
         </button>
       </form>
@@ -476,7 +421,7 @@ export function Footer() {
           <Brand />
           <p>One partner. Every workforce need.</p>
           <a href="tel:+919057918251">+91 90579 18251</a>
-          <a href="mailto:myselfarihantsaini@gmail.com">Talk to WorkLanceo</a>
+          <a href="mailto:hello@worklanceo.com">hello@worklanceo.com</a>
         </div>
         {[
           [
@@ -493,11 +438,12 @@ export function Footer() {
           [
             "Company",
             ["About Us", "/about"],
-            ["Contact", "mailto:myselfarihantsaini@gmail.com"],
+            ["Contact", "mailto:hello@worklanceo.com"],
             [
               "Careers",
-              "mailto:myselfarihantsaini@gmail.com?subject=Careers%20at%20WorkLanceo",
+              "mailto:hello@worklanceo.com?subject=Careers%20at%20WorkLanceo",
             ],
+            ["LinkedIn", "https://www.linkedin.com/company/worklanceo"],
           ],
           [
             "Resources",
@@ -614,6 +560,33 @@ export default function Homepage() {
           ))}
         </div>
       </section>
+      <section className="wl-section wl-clients" aria-labelledby="wl-clients-title">
+        <p className="wl-eyebrow">TRUSTED HIRING SUPPORT</p>
+        <h2 id="wl-clients-title">Clients we&apos;ve hired for</h2>
+        <div className="wl-client-logos" aria-label="Client logo placeholders">
+          {[1, 2, 3, 4].map((item) => (
+            <div key={item} aria-label={`Client logo placeholder ${item}`}>
+              Client logo
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="wl-section wl-results" aria-labelledby="wl-results-title">
+        <p className="wl-eyebrow">RESULTS</p>
+        <h2 id="wl-results-title">Hiring outcomes at a glance</h2>
+        <div>
+          {[
+            "Candidates placed",
+            "Roles filled",
+            "Cities covered",
+          ].map((label) => (
+            <article key={label}>
+              <strong aria-label="Value to be added">__</strong>
+              <span>{label}</span>
+            </article>
+          ))}
+        </div>
+      </section>
       <section className="wl-employer-cta wl-section">
         <div>
           <p className="wl-eyebrow">YOUR NEXT GREAT TEAM STARTS HERE</p>
@@ -666,7 +639,7 @@ export default function Homepage() {
           ],
           [
             "What happens after I submit?",
-            "Your requirement is saved to your account and shared with the recruitment team for review and follow-up. You can view and track it in My Workspace.",
+            "Your requirement is sent directly to the recruitment team for review and follow-up. No Google sign-in is required.",
           ],
         ].map(([q, a]) => (
           <details key={q}>
