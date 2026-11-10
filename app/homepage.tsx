@@ -560,33 +560,6 @@ export default function Homepage() {
           ))}
         </div>
       </section>
-      <section className="wl-section wl-clients" aria-labelledby="wl-clients-title">
-        <p className="wl-eyebrow">TRUSTED HIRING SUPPORT</p>
-        <h2 id="wl-clients-title">Clients we&apos;ve hired for</h2>
-        <div className="wl-client-logos" aria-label="Client logo placeholders">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} aria-label={`Client logo placeholder ${item}`}>
-              Client logo
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="wl-section wl-results" aria-labelledby="wl-results-title">
-        <p className="wl-eyebrow">RESULTS</p>
-        <h2 id="wl-results-title">Hiring outcomes at a glance</h2>
-        <div>
-          {[
-            "Candidates placed",
-            "Roles filled",
-            "Cities covered",
-          ].map((label) => (
-            <article key={label}>
-              <strong aria-label="Value to be added">__</strong>
-              <span>{label}</span>
-            </article>
-          ))}
-        </div>
-      </section>
       <section className="wl-employer-cta wl-section">
         <div>
           <p className="wl-eyebrow">YOUR NEXT GREAT TEAM STARTS HERE</p>
