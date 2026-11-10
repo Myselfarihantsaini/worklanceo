@@ -19,6 +19,7 @@ export async function GET(request: Request) {
     const kind = p.get("kind");
     const status = p.get("status");
     const category = p.get("category");
+    const role = (p.get("role") ?? "").trim().slice(0, 160);
     const where = [visible];
     const bindings: any[] = [];
     if (q) {
@@ -48,6 +49,13 @@ export async function GET(request: Request) {
       where.push("json_extract(data,'$.jobCategory') = ?");
       bindings.push(category);
     }
+    if (role) {
+      where.push("kind = 'application'");
+      where.push(
+        "LOWER(COALESCE(NULLIF(TRIM(json_extract(data,'$.preferredRole')),''),NULLIF(TRIM(title),''),'Unspecified role')) = LOWER(?)",
+      );
+      bindings.push(role);
+    }
     if (p.get("due") === "true") {
       where.push("follow_up != '' AND follow_up <= ? AND status != 'Closed'");
       bindings.push(
@@ -73,6 +81,11 @@ export async function GET(request: Request) {
         new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }),
       )
       .first();
+    const roles = await db
+      .prepare(
+        `SELECT MIN(role_label) AS role,COUNT(*) AS count FROM (SELECT COALESCE(NULLIF(TRIM(json_extract(data,'$.preferredRole')),''),NULLIF(TRIM(title),''),'Unspecified role') AS role_label FROM records WHERE ${visible} AND kind='application') GROUP BY LOWER(role_label) ORDER BY count DESC,role COLLATE NOCASE LIMIT 50`,
+      )
+      .all();
     return Response.json(
       {
         records: rows.results.map((r: any) => ({
@@ -82,6 +95,7 @@ export async function GET(request: Request) {
         total: count?.n ?? 0,
         page,
         summary,
+        roles: roles.results,
       },
       { headers },
     );

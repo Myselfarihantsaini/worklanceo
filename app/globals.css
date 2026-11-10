@@ -1673,6 +1673,82 @@ form h4 {
   font-weight: 600;
   margin-top: 15px;
 }
+.adminroles {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) 2fr;
+  gap: 24px;
+  align-items: start;
+  background: #eef5ef;
+  border: 1px solid #d7e5d8;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 0 0 22px;
+}
+.adminroles h2 {
+  margin: 0 0 7px;
+  font-size: 22px;
+  letter-spacing: -0.4px;
+}
+.adminroles .muted {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.adminrolegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.adminrolecard {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #d2ded3;
+  border-radius: 9px;
+  background: #fff;
+  color: #203e2a;
+  padding: 13px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.adminrolecard:hover {
+  border-color: #8eb496;
+  box-shadow: 0 4px 14px rgba(35, 83, 48, 0.08);
+}
+.adminrolecard.active {
+  border-color: #267540;
+  box-shadow: inset 0 0 0 1px #267540;
+  background: #f7fcf8;
+}
+.adminrolecard span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+}
+.adminrolecard strong {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #e7f1e9;
+  color: #316b40;
+  font-size: 12px;
+}
+.adminrolesempty {
+  grid-column: 1/-1;
+  margin: 0;
+  color: #657568;
+  font-size: 13px;
+}
 .admininbox {
   background: #fff;
   border: 1px solid #dde5df;
@@ -1725,7 +1801,7 @@ form h4 {
 }
 .adminfilters {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr repeat(4, 1fr);
   gap: 14px;
   margin: 26px 0;
 }
@@ -1896,6 +1972,18 @@ form h4 {
 @media (max-width: 800px) {
   .adminstats {
     grid-template-columns: 1fr 1fr;
+  }
+  .adminroles {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .adminrolegrid {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .adminrolecard {
+    min-width: 180px;
   }
   .adminfilters {
     grid-template-columns: 1fr 1fr;

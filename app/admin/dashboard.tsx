@@ -52,6 +52,7 @@ type Entry = {
   version: number;
   reviewedAt: number | null;
 };
+type RoleSection = { role: string; count: number };
 const statuses = ["New", "Contacted", "In progress", "Closed"];
 const allCategories = [
   "All job categories",
@@ -126,6 +127,8 @@ export default function Dashboard({ name }: { name: string }) {
     [search, setSearch] = useState(""),
     [kind, setKind] = useState("All submissions"),
     [category, setCategory] = useState("All job categories"),
+    [role, setRole] = useState("All candidate roles"),
+    [roleSections, setRoleSections] = useState<RoleSection[]>([]),
     [status, setStatus] = useState("All statuses"),
     [due, setDue] = useState(false),
     [loading, setLoading] = useState(true),
@@ -159,6 +162,7 @@ export default function Dashboard({ name }: { name: string }) {
                 : "",
           status,
           category: category === "All job categories" ? "" : category,
+          role: role === "All candidate roles" ? "" : role,
           due: String(due),
         });
         const r = await fetch("/api/admin/records?" + p, {
@@ -170,6 +174,7 @@ export default function Dashboard({ name }: { name: string }) {
         setRows(d.records);
         setTotal(d.total);
         setSummary(d.summary ?? {});
+        setRoleSections(Array.isArray(d.roles) ? d.roles : []);
         setLastUpdated(Date.now());
       } catch (e: any) {
         if (e.name !== "AbortError") {
@@ -181,7 +186,7 @@ export default function Dashboard({ name }: { name: string }) {
         else if (!signal?.aborted) setLoading(false);
       }
     },
-    [page, search, kind, category, status, due],
+    [page, search, kind, category, role, status, due],
   );
   useEffect(() => {
     const c = new AbortController();
@@ -378,6 +383,70 @@ export default function Dashboard({ name }: { name: string }) {
             </div>
           ))}
         </div>
+        <section className="adminroles" aria-labelledby="admin-role-sections">
+          <div>
+            <p className="eyebrow">CANDIDATE LIBRARY</p>
+            <h2 id="admin-role-sections">CV sections by role</h2>
+            <p className="muted">
+              Open a section to view only candidates interested in that role.
+            </p>
+          </div>
+          <div className="adminrolegrid">
+            <button
+              className={
+                "adminrolecard" +
+                (kind === "Candidate profiles" &&
+                role === "All candidate roles"
+                  ? " active"
+                  : "")
+              }
+              aria-pressed={
+                kind === "Candidate profiles" && role === "All candidate roles"
+              }
+              onClick={() => {
+                setQuery("");
+                setSearch("");
+                setKind("Candidate profiles");
+                setCategory("All job categories");
+                setRole("All candidate roles");
+                setPage(1);
+              }}
+            >
+              <span>All candidate CVs</span>
+              <strong>{loading ? "—" : Number(summary.candidates ?? 0)}</strong>
+            </button>
+            {roleSections.map((section) => (
+              <button
+                key={section.role}
+                className={
+                  "adminrolecard" +
+                  (kind === "Candidate profiles" && role === section.role
+                    ? " active"
+                    : "")
+                }
+                aria-pressed={
+                  kind === "Candidate profiles" && role === section.role
+                }
+                onClick={() => {
+                  setQuery("");
+                  setSearch("");
+                  setKind("Candidate profiles");
+                  setCategory("All job categories");
+                  setRole(section.role);
+                  setPage(1);
+                }}
+              >
+                <span>{section.role}</span>
+                <strong>{Number(section.count)}</strong>
+              </button>
+            ))}
+            {!loading && !roleSections.length && (
+              <p className="adminrolesempty">
+                Role sections will appear when candidate CVs are submitted.
+              </p>
+            )}
+          </div>
+        </section>
         <section className="admininbox">
           <div className="resultsline">
             <div className="inboxtitle">
@@ -408,6 +477,7 @@ export default function Dashboard({ name }: { name: string }) {
                   setSearch("");
                   setKind("Candidate profiles");
                   setCategory("All job categories");
+                  setRole("All candidate roles");
                   setStatus("All statuses");
                   setDue(false);
                   setPage(1);
@@ -449,8 +519,10 @@ export default function Dashboard({ name }: { name: string }) {
               value={kind}
               onChange={(v: string) => {
                 setKind(v);
-                if (v !== "Candidate profiles")
+                if (v !== "Candidate profiles") {
                   setCategory("All job categories");
+                  setRole("All candidate roles");
+                }
                 setPage(1);
               }}
               options={[
@@ -477,6 +549,20 @@ export default function Dashboard({ name }: { name: string }) {
                 setPage(1);
               }}
               options={allCategories}
+            />
+            <Picker
+              label="Candidate role"
+              value={role}
+              onChange={(v: string) => {
+                setRole(v);
+                if (v !== "All candidate roles")
+                  setKind("Candidate profiles");
+                setPage(1);
+              }}
+              options={[
+                "All candidate roles",
+                ...roleSections.map((section) => section.role),
+              ]}
             />
             <label className="admincheck">
               <Checkbox
@@ -511,6 +597,7 @@ export default function Dashboard({ name }: { name: string }) {
                 kind !== "All submissions" ||
                 status !== "All statuses" ||
                 category !== "All job categories" ||
+                role !== "All candidate roles" ||
                 due
                   ? "No matching submissions"
                   : "Ready for your first enquiry"}
@@ -520,6 +607,7 @@ export default function Dashboard({ name }: { name: string }) {
                 kind !== "All submissions" ||
                 status !== "All statuses" ||
                 category !== "All job categories" ||
+                role !== "All candidate roles" ||
                 due
                   ? "Try another search or clear your filters."
                   : "New hiring enquiries and candidate profiles submitted to the team will appear here."}
@@ -532,6 +620,7 @@ export default function Dashboard({ name }: { name: string }) {
                   setKind("All submissions");
                   setStatus("All statuses");
                   setCategory("All job categories");
+                  setRole("All candidate roles");
                   setDue(false);
                   setPage(1);
                 }}
